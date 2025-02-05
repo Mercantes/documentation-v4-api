@@ -1,14 +1,62 @@
 ---
 title: 'Webhooks'
-description: 'Start building awesome documentation in under 5 minutes'
+description: 'Configure e receba notificações sobre atualizações'
 icon: 'webhook'
 ---
 
-## Setup your development
+Para receber notificações de atualização, você precisa cadastrar um webhook.
 
-Learn how to update your docs locally and deploy them to the public.
+## <Icon icon="mobile" type="solid"/>  Gerenciando webhooks
 
-### Edit and preview
+Você pode listar, criar e remover seus webhooks dentro da nossa plataforma.
+
+<Card title="Webhooks funcionam em ambientes diferentes." icon="book" horizontal>
+  Se você criar um webhook em dev mode, você receberá notificações de atualizações no ambiente de testes. Se você criar um webhooks em produção, ele funcionará com dados reais. <br />
+  Leia mais sobre dev mode <a href="./devmode"> aqui </a>.
+</Card>
+
+## <Icon icon="key" type="solid"/>  Criando webhooks
+
+<Card title="Ao criar seu webhook, lembre-se de protegê-lo." icon="light-emergency-on" horizontal>
+ • Utilize um secret em seu webhook.
+</Card>
+
+## Para criar seu webhook é muito fácil, basta navegar no dashboard até a seção Integrar:
+
+<Steps>
+  <Step title="Primeiro Passo">
+    <Card>
+        <img
+            src="/images/criar-webhook.png"
+            alt="Imagem da plataforma abacate-pay"
+        />
+        <Card title="Clique no botao webhooks na secção Integrar" img=""></Card>
+    </Card>
+  </Step>
+  <Step title="Segundo Passo">
+    <Card>
+        <img
+            src="/images/salvar-webhook.png"
+            alt="Imagem da plataforma abacate-pay"
+        />
+        <Card title="Clique no botão "Criar" e em seguida adicione um descrição sobre o webhook. Preencha:"></Card>
+        *Nome: Vai te ajudar a identificar o webhook na lista
+        *URL: O URL do seu webhook
+        *secret: O secret do seu webhook para proteção. Enviaremos esse dado junto da requisição
+    </Card>
+  </Step>
+  <Step title="Terceiro Passo">
+    <Card>
+  <img
+    src="/images/copiar-chave-api.png"
+    alt="Imagem da plataforma abacate-pay"
+  />
+  <Card title="Com sua chave criada, encontre-a na lista e clique em Copiar chave."> </Card>
+</Card>
+  </Step>
+</Steps>
+
+
 
 <AccordionGroup>
   <Accordion icon="github" title="Clone your docs locally">
