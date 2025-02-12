@@ -48,25 +48,6 @@
             ]
           }
         ]
-      },
-      {
-        "tab": "API Reference",
-        "groups": [
-          {
-            "group": "API Documentation",
-            "pages": [
-              "api-reference/introduction"
-            ]
-          },
-          {
-            "group": "Endpoint Examples",
-            "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete"
-            ]
-          }
-        ]
       }
     ]
   },
@@ -77,21 +58,21 @@
   "navbar": {
     "links": [
       {
-        "label": "Support",
-        "href": "mailto:hi@mintlify.com"
+        "label": "Repositorio",
+        "href": "https://github.com/AbacatePay/documentation"
       }
     ],
     "primary": {
       "type": "button",
       "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
+      "href": "https://www.abacatepay.com/app"
     }
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "x": "https://x.com/abacatepay",
+      "github": "https://github.com/AbacatePay",
+      "linkedin": "https://br.linkedin.com/company/abacatepay?trk=public_post_feed-actor-name"
     }
   }
 }
