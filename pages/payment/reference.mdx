@@ -1,14 +1,14 @@
 ---
-title: 'Referência'
-description: 'Crie um link de cobrança e deixe seu cliente pagar'
-icon: 'book-open-cover'
+title: "Referência"
+description: "Crie um link de cobrança e deixe seu cliente pagar"
+icon: "book-open-cover"
 ---
 
 O termo "cobrança" é genérico. Ele representa um portal de um fluxo de pagamento onde você pode cobrar seu cliente e ele fazer todo o processo de pagamento sem nenhuma interrupção.
 
-Poderíamos chamar uma cobrança de portal, checkout, link de pagamento e por aí vai. Mas como você está cobrando seu cliente, nada mais justo que que chamar esse fluxo de cobrança.
+Atualmente uma cobrança pode ser de duas formas, `ONE_TIME` para pagamentos únicos onde é preciso enviar os dados do seu cliente e `MULTIPLE_PAYMENTS` onde a cobrança age como um checkout sem a necessidade de enviar os dados do seu cliente pois eles mesmos irão inserir os dados.
 
-## <Icon icon="folder-tree" type="solid"/>  Estrutura
+## <Icon icon="folder-tree" type="solid"/> Estrutura
 
 Uma cobrança é representada em nossa API pela seguinte estrutura:
 
@@ -20,9 +20,7 @@ Uma cobrança é representada em nossa API pela seguinte estrutura:
   "amount": 4000,
   "status": "PAID",
   "devMode": true,
-  "methods": [
-    "PIX"
-  ],
+  "methods": ["PIX"],
   "products": [
     {
       "id": "prod_dNFbdDjfpaegmzBWWdNM2Huw",
@@ -53,7 +51,7 @@ Uma cobrança é representada em nossa API pela seguinte estrutura:
 ## Atributos:
 
 <AccordionGroup>
-    <Accordion title="Id:">
+    <Accordion title="id:">
         ```json json {2}
         {
         "id": "bill_uA0M0xwg5R4mSyr0n2PjHQXY",
@@ -63,48 +61,55 @@ Uma cobrança é representada em nossa API pela seguinte estrutura:
         `id` : <u> string. </u> <br />
         Id único da cobrança na AbacatePay
     </Accordion>
-    <Accordion title="Frequency:">
+    <Accordion title="frequency:">
         ```json json {2}
         {
         "frequency": "ONE_TIME",
-        } 
+        }
         ```
         `frequency` : <u> string. </u> <br />
-        Frequência da cobrança. Suportamos somente `ONE_TIME`
+        Frequência da cobrança. Pode ser `ONE_TIME` ou `MULTIPLE_PAYMENTS`.
+
+        <Info >
+            |                      |                                                                                                      |
+            | ---------------------| ---------------------------------------------------------------------------------------------------- |
+            | `ONE_TIME`           | **Cobrança que aceita um único pagamento. É necessário enviar os dados do cliente**                  |
+            | `MULTIPLE_PAYMENTS`  | **Cobrança em modo checkout, aceita vários pagamentos. Não é necessário enviar os dados do cliente.**|
+        </Info>
     </Accordion>
-     <Accordion title="Url:">
+     <Accordion title="url:">
        ```json json {2}
         {
-        "url": "https://abacatepay.com/pay/bill_uA0M0xwg5R4mSyr0n2PjHQXY",
-        } 
+          "url": "https://abacatepay.com/pay/bill_uA0M0xwg5R4mSyr0n2PjHQXY",
+        }
         ```
         `url` : <u> string. </u> <br />
         URL para seu cliente executar o pagamento da cobrança
 
-        ### Amount: 
+        ### Amount:
         ```json json {2}
         {
-        "amount": 4000,
-        } 
+          "amount": 4000,
+        }
         ```
         `amount` : <u> number. </u> <br />
         Valor da cobrança em centavos
     </Accordion>
-    <Accordion title="Amount:">
+    <Accordion title="amount:">
         ```json json {2}
         {
-        "amount": 4000,
-        } 
+          "amount": 4000,
+        }
         ```
         `amount` : <u> number. </u> <br />
         Valor da cobrança em centavos
 
     </Accordion>
-       <Accordion title="Status:">
+       <Accordion title="status:">
         ```json json {2}
         {
-        "status": "PAID",
-        } 
+          "status": "PAID",
+        }
         ```
         `status` : <u> string. </u> <br />
         Status da cobrança. Pode ser `PENDING`, `EXPIRED`, `CANCELLED`, `PAID`, `REFUNDED`
@@ -119,14 +124,11 @@ Uma cobrança é representada em nossa API pela seguinte estrutura:
             | `REFUNDED` | **O valor foi devolvido ao cliente** |
         </Info>
     </Accordion>
-    <Accordion title="Methods:">
-       ```json json {2-5}
+    <Accordion title="methods:">
+       ```json json {2}
         {
-        "methods": 
-            [
-                "PIX"
-            ],
-        } 
+          "methods": ["PIX"],
+        }
         ```
         `methods` : <u> array </u> <br />
         Tipos de pagamento. Suportamos somente `PIX` no momento.
@@ -134,44 +136,49 @@ Uma cobrança é representada em nossa API pela seguinte estrutura:
     <Accordion title="Products:">
        ```json json {2-9}
         {
-        "products": 
+        "products":
         [
-            {
+          {
             "id": "prod_dNFbdDjfpaegmzBWWdNM2Huw",
             "externalId": "prod-1234",
             "quantity": 1
-            }
+          }
         ],
-        } 
+        }
         ```
         `products` : <u> array </u> <br />
         Lista de produtos inclusos na cobrança
     </Accordion>
-    <Accordion title="Customer:">
-        ```json json {2-5}
+    <Accordion title="customer:">
+        ```json json {2-10}
         {
-        "methods": 
-            [
-                "PIX"
-            ],
-        } 
+          "customer": {
+            "id": "cust_aebxkhDZNaMmJeKsy0AHS0FQ",
+            "metadata": {
+              "name": "Test Customer",
+              "cellphone": "11999999999",
+              "taxId": "12345678900",
+              "email": "test@example.com"
+            }
+          }
+        }
         ```
         `customer` : <u> object </u> <br />
         Cliente que você está cobrando. Veja referência da estrutura <a href="./client/reference.mdx"> aqui </a>
     </Accordion>
-    <Accordion title="Metadata:">
+    <Accordion title="metadata:">
         ```json json {2-5}
         {
-        "metadata": {
+          "metadata": {
             "fee": 100,
             "returnUrl": "https://example.com/billing",
             "completionUrl": "https://example.com/completion"
-        },
-        } 
+          }
+        }
         ```
-        `Metadata` : <u> object </u> <br />
-        Objeto com os dados do cliente
-        
+        `metadata` : <u> object </u> <br />
+        Objeto com metadados sobre a cobrança
+
         * `fee`  <u> number </u>
         Taxa aplicada pela AbacatePay
         * `returnUrl` <u>string </u>
@@ -182,12 +189,12 @@ Uma cobrança é representada em nossa API pela seguinte estrutura:
     <Accordion title="nextBilling:">
         ```json json {2}
         {
-        "nextBilling": null,
-        } 
+          "nextBilling": null,
+        }
         ```
 
         `nextBilling` : <u> date-time | null. </u> <br />
         Data e hora da próxima cobrança, ou null para cobranças únicas
     </Accordion>
-</AccordionGroup>
 
+</AccordionGroup>
