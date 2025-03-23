@@ -19,10 +19,10 @@
   "navigation": {
     "tabs": [
       {
-        "tab": "Guides",
+        "tab": "Documentação",
         "groups": [
           {
-            "group": "Comece Aqui",
+            "group": "Introdução",
             "pages": [
               "pages/introduction",
               "pages/devmode",
