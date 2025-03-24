@@ -20,7 +20,6 @@
     "tabs": [
       {
         "tab": "Documentação",
-        "openapi": "openapi.yaml",
         "groups": [
           {
             "group": "Introdução",
@@ -49,6 +48,10 @@
             ]
           }
         ]
+      },
+      {
+        "tab": "Referência da API",
+        "openapi": "openapi.yaml"
       }
     ]
   },
