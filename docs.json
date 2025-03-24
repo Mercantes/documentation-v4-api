@@ -20,6 +20,7 @@
     "tabs": [
       {
         "tab": "Documentação",
+        "openapi": "openapi.yaml",
         "groups": [
           {
             "group": "Introdução",
