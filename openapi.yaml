@@ -181,8 +181,8 @@ paths:
               properties:
                 frequency:
                   type: string
-                  description: Define o tipo de frequência da cobrança. Atualmente, somente cobranças únicas são suportadas.
-                  enum: 'ONE_TIME'
+                  description: Define o tipo de frequência da cobrança. Para cobranças únicas, use `ONE_TIME`. Para cobranças que podem ser pagas mais de uma vez, use `MULTIPLE_PAYMENTS`.
+                  enum: ['ONE_TIME', 'MULTIPLE_PAYMENTS']
                   default: 'ONE_TIME'
                   example: 'ONE_TIME'
                 methods:
@@ -441,7 +441,7 @@ components:
         frequency:
           type: string
           description: Frequência da cobrança.
-          enum: 'ONE_TIME'
+          enum: ['ONE_TIME', 'MULTIPLE_PAYMENTS']
           example: 'ONE_TIME'
         nextBilling:
           type: string
