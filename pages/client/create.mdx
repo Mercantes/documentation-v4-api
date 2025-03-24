@@ -1,29 +1,7 @@
 ---
-title: 'Criar Clientes'
-api: "POST https://api.abacatepay.com/v1/customer/create"
+title: 'Criar um novo Cliente'
+openapi: "POST /customer/create"
 icon: 'plus'
-description: 'Permite que você crie um novo cliente para a sua loja.'
 authMethod: "bearer"
 ---
-
-### body
-
-
-<ParamField body="name" type="string" placeholder="ex: Lucas Zago">
-  Nome completo do seu cliente
-</ParamField>
-
-<ParamField body="cellphone" type="string" placeholder="ex: 11 123456789">
-  Celular do cliente
-</ParamField>
-
-
-<ParamField body="email" type="string" placeholder="ex: abacatepay@gmail.com">
-  E-mail do cliente
-</ParamField>
-
-
-<ParamField body="taxId" type="string" placeholder="ex: 123.456.789.12">
-  CPF ou CNPJ do cliente.
-</ParamField>
 
