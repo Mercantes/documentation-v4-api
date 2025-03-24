@@ -1,0 +1,462 @@
+openapi: 3.1.0
+info:
+  title: API AbacatePay
+  description: API para gerenciamento de cobranças e pagamentos usando o AbacatePay.
+  version: 1.0.0
+servers:
+  - url: https://api.abacatepay.com/v1
+    description: Único servidor para os ambientes de produção e sandbox.
+paths:
+  /customer/create:
+    post:
+      summary: Criar um novo cliente
+      description: Permite que você crie um novo cliente para a sua loja.
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Os dados do seu cliente caso deseje criá-lo no momento da criação da sua cobrança.
+              required: ['name', 'cellphone', 'email', 'taxId']
+              additionalProperties: false
+              properties:
+                name:
+                  type: string
+                  description: Nome completo do seu cliente
+                  example: Daniel Lima
+                cellphone:
+                  type: string
+                  description: Celular do cliente
+                  example: (11) 4002-8922
+                email:
+                  type: string
+                  description: E-mail do cliente
+                  example: daniel_lima@abacatepay.com
+                taxId:
+                  type: string
+                  description: CPF ou CNPJ válido do cliente.
+                  example: 123.456.789-01
+      responses:
+        '200':
+          description: Cliente criado com sucesso.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Customer'
+                  error:
+                    type: null
+        '401':
+          description: Não autorizado. Falha na autenticação.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Mensagem de erro descrevendo o motivo da falha na autenticação.
+                    example: 'Token de autenticação inválido ou ausente.'
+  /customer/list:
+    get:
+      summary: Listar clientes
+      description: Permite que você recupere uma lista de todos os seus clientes.
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Lista de clientes retornada com sucesso.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    description: Lista de clientes.
+                    items:
+                      $ref: '#/components/schemas/Customer'
+                  error:
+                    type: null
+        '401':
+          description: Não autorizado. Falha na autenticação.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Mensagem de erro descrevendo o motivo da falha na autenticação.
+                    example: 'Token de autenticação inválido ou ausente.'
+  /coupon/create:
+    post:
+      summary: Criar um novo cupom
+      description: Permite que você crie um novo cupom que pode ser usado por seus clientes para aplicar descontos.
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/Coupon'
+                error:
+                  type: null
+      responses:
+        '200':
+          description: Cliente criado com sucesso.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Coupon'
+                  error:
+                    type: null
+        '401':
+          description: Não autorizado. Falha na autenticação.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Mensagem de erro descrevendo o motivo da falha na autenticação.
+                    example: 'Token de autenticação inválido ou ausente.'
+  /coupon/list:
+    get:
+      summary: Listar cupons
+      description: Permite que você recupere uma lista de todos os seus cupons.
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Lista de cupons retornada com sucesso.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    description: Lista de cupons.
+                    items:
+                      $ref: '#/components/schemas/Coupon'
+                  error:
+                    type: null
+        '401':
+          description: Não autorizado. Falha na autenticação.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Mensagem de erro descrevendo o motivo da falha na autenticação.
+                    example: 'Token de autenticação inválido ou ausente.'
+  /billing/create:
+    post:
+      summary: Criar uma nova cobrança
+      description: Permite que você crie um link de cobrança pro seu cliente pagar você.
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                frequency:
+                  type: string
+                  description: Define o tipo de frequência da cobrança. Para cobranças únicas, use `ONE_TIME`. Para cobranças que podem ser pagas mais de uma vez, use `MULTIPLE_PAYMENTS`.
+                  enum: ['ONE_TIME', 'MULTIPLE_PAYMENTS']
+                  default: 'ONE_TIME'
+                  example: 'ONE_TIME'
+                methods:
+                  type: array
+                  description: Métodos de pagamento que serão utilizados. Atualmente, apenas PIX é suportado.
+                  items:
+                    type: string
+                    enum: ['PIX']
+                  minItems: 1
+                  maxItems: 1
+                  uniqueItems: true
+                  default: ['PIX']
+                  example: ['PIX']
+                products:
+                  type: array
+                  description: Lista de produtos que seu cliente está pagando.
+                  items:
+                    type: object
+                    properties:
+                      externalId:
+                        type: string
+                        description: O id do produto em seu sistema. Utilizamos esse id para criar seu produto na AbacatePay de forma automática, então certifique-se de que seu id é único.
+                        example: 'prod-1234'
+                      name:
+                        type: string
+                        description: Nome do produto.
+                        example: 'Assinatura de Programa Fitness'
+                      description:
+                        type: string
+                        description: Descrição detalhada do produto.
+                        example: 'Acesso ao programa fitness premium por 1 mês.'
+                      quantity:
+                        type: integer
+                        description: Quantidade do produto sendo adquirida.
+                        minimum: 1
+                        example: 2
+                      price:
+                        type: integer
+                        description: Preço por unidade do produto em centavos. O mínimo é 100 (1 BRL).
+                        minimum: 100
+                        example: 2000
+                    required: ['externalId', 'name', 'quantity', 'price']
+                    additionalProperties: false
+                  minItems: 1
+                  example:
+                    - externalId: 'prod-1234'
+                      name: 'Assinatura de Programa Fitness'
+                      description: 'Acesso ao programa fitness premium por 1 mês.'
+                      quantity: 2
+                      price: 2000
+                returnUrl:
+                  type: string
+                  format: uri
+                  description: URL para redirecionar o cliente caso o mesmo clique na opção "Voltar".
+                  example: 'https://example.com/billing'
+                completionUrl:
+                  type: string
+                  format: uri
+                  description: URL para redirecionar o cliente quando o pagamento for concluído.
+                  example: 'https://example.com/completion'
+                customerId:
+                  type: string
+                  description: O id de um cliente já cadastrado em sua loja.
+                  example: 'cust_abcdefghij'
+                customer:
+                  type: object
+                  description: Os dados do seu cliente para criá-lo
+                  required: ['name', 'cellphone', 'email', 'taxId']
+                  additionalProperties: false
+                  properties:
+                    name:
+                      type: string
+                      description: Nome completo do seu cliente
+                      example: Daniel Lima
+                    cellphone:
+                      type: string
+                      description: Celular do cliente
+                      example: (11) 4002-8922
+                    email:
+                      type: string
+                      description: E-mail do cliente
+                      example: daniel_lima@abacatepay.com
+                    taxId:
+                      type: string
+                      description: CPF ou CNPJ do cliente.
+                      example: 123.456.789-01
+              required: ['frequency', 'methods', 'products', 'returnUrl', 'completionUrl']
+              additionalProperties: false
+      responses:
+        '200':
+          description: Cobrança criada com sucesso.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Billing'
+                  error:
+                    type: null
+        '401':
+          description: Não autorizado. Falha na autenticação.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Mensagem de erro descrevendo o motivo da falha na autenticação.
+                    example: 'Token de autenticação inválido ou ausente.'
+  /billing/list:
+    get:
+      summary: Listar cobranças
+      description: Permite que você recupere uma lista de todas as cobranças criadas.
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Lista de cobranças retornada com sucesso.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    description: Lista de cobranças criadas.
+                    items:
+                      $ref: '#/components/schemas/Billing'
+                  error:
+                    type: null
+        '401':
+          description: Não autorizado. Falha na autenticação.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Mensagem de erro descrevendo o motivo da falha na autenticação.
+                    example: 'Token de autenticação inválido ou ausente.'
+components:
+  schemas:
+    Customer:
+      type: object
+      description: Os dados do seu cliente.
+      required: ['name', 'cellphone', 'email', 'taxId']
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+          description: Identificador único do cliente
+          example: 'bill_123456'
+        metadata:
+          type: object
+          description: Dados do cliente
+          properties:
+            name:
+              type: string
+              description: Nome completo do seu cliente
+              example: Daniel Lima
+            cellphone:
+              type: string
+              description: Celular do cliente
+              example: (11) 4002-8922
+            email:
+              type: string
+              description: E-mail do cliente
+              example: daniel_lima@abacatepay.com
+            taxId:
+              type: string
+              description: CPF ou CNPJ do cliente.
+              example: 123.456.789-01
+    Coupon:
+      type: object
+      description: Os dados do seu cupom.
+      required: ['code', 'discount', 'discountKind']
+      additionalProperties: false
+      properties:
+        code:
+          type: string
+          description: Identificador único do cupom
+          example: DEYVIN_20
+        notes:
+          type: string
+          description: Descrição sbre o cupom
+          example: Cupom de desconto pro meu público
+        maxRedeems:
+          type: number
+          description: Quantidade de vezes em que o cupom pode ser resgatado. -1 Significa que esse cupom pode ser resgatado sem limites
+          example: 10
+          default: -1
+        discountKind:
+          type: string
+          description: Tipo de desconto aplicado, porcentagem ou fixo
+          enum: ['PERCENTAGE', 'FIXED']
+        discount:
+          type: number
+          description: Valor de desconto a ser aplicado
+        metadata:
+          type: object
+          description: Objeto chave valor para metadados do cupom
+          default: {}
+    Billing:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Identificador único da cobrança.
+          example: 'bill_123456'
+        url:
+          type: string
+          format: uri
+          description: URL onde o usuário pode concluir o pagamento.
+          example: 'https://pay.abacatepay.com/bill-5678'
+        amount:
+          type: number
+          description: Valor total a ser pago em centavos.
+          example: 4000
+        status:
+          type: string
+          description: Status atual da cobrança.
+          enum: ['PENDING', 'EXPIRED', 'CANCELLED', 'PAID', 'REFUNDED']
+          example: 'PENDING'
+        devMode:
+          type: boolean
+          description: Indica se a cobrança foi criada em ambiente de testes.
+          example: true
+        methods:
+          type: array
+          description: Métodos de pagamento suportados para esta cobrança.
+          items:
+            type: string
+            enum: ['PIX']
+          example: ['PIX']
+        products:
+          type: array
+          description: Lista de produtos na cobrança.
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: Identificador único do produto.
+                example: 'prod_123456'
+              externalId:
+                type: string
+                description: O id do produto em seu sistema.
+                example: 'prod-1234'
+              quantity:
+                type: integer
+                description: Quantidade do produto sendo adquirida.
+                example: 2
+        frequency:
+          type: string
+          description: Frequência da cobrança.
+          enum: ['ONE_TIME', 'MULTIPLE_PAYMENTS']
+          example: 'ONE_TIME'
+        nextBilling:
+          type: string
+          format: date-time
+          nullable: true
+          description: Data e hora da próxima cobrança, ou null para cobranças únicas.
+          example: null
+        customer:
+          type: object
+          nullable: true
+          $ref: '#/components/schemas/Customer'
+      required:
+        ['id', 'url', 'amount', 'status', 'devMode', 'methods', 'products', 'frequency', 'createdAt', 'updatedAt']
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

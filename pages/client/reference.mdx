@@ -10,11 +10,10 @@ Um cliente é seu usuário final, aquele que você vai cobrar e pagar o seu prod
 
 Um cliente é representado em nossa API pela seguinte estrutura:
 
-```json json
+```json
 {
   "id": "cust_aebxkhDZNaMmJeKsy0AHS0FQ",
-  "metadata": 
-  {
+  "metadata": {
     "name": "Test Customer",
     "cellphone": "11999999999",
     "taxId": "12345678900",
@@ -25,9 +24,9 @@ Um cliente é representado em nossa API pela seguinte estrutura:
 
 ## Atributos
 
-### Id: 
+### id: 
 
-```json json {2}
+```json {2}
 {
   "id": "cust_aebxkhDZNaMmJeKsy0AHS0FQ",
 } 
@@ -36,13 +35,12 @@ Um cliente é representado em nossa API pela seguinte estrutura:
 `id` : <u> string. </u> <br />
 Id único do cliente na AbacatePay
 
-### Metadados: 
+### metadados: 
 Objeto com os dados do cliente
 
-```json json {4-7}
+```json json {2-7}
 {
-  "metadata": 
-  {
+  "metadata": {
     "name": "Test Customer",
     "cellphone": "11999999999",
     "taxId": "12345678900",
@@ -55,10 +53,10 @@ Objeto com os dados do cliente
 
 * `cellphone` : <u> string. </u> <br /> Telefone do cliente (opcional)
 
-* `taxId` : <u> string. </u> <br /> Documento do cliente, podendo ser CPF ou CNPJ (opcional)
+* `taxId` : <u> string. </u> <br /> Documento válido do cliente, podendo ser CPF ou CNPJ (opcional)
 
 * `email` : <u> string. </u> <br /> E-mail do cliente (obrigatório)
 
-<Tip title="Clientes não são únicos" icon="book" horizontal>
- É possível criar mais de um cliente com os mesmos dados. Caso você precise que seus clientes sejam únicos, basta guardar o campo `id` em seu sistema
+<Tip title="Clientes são únicos por CPF/CNPJ" icon="book" horizontal>
+ Não é possível criar um cliente com CPF/CNPJ inválido e caso já exista um cliente com esse CPF/CNPJ, a API não criará o cliente novo mas retornará o cliente já existente
 </Tip>
