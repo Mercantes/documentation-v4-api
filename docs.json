@@ -10,12 +10,12 @@
   "favicon": "/favicon.svg",
   "api": {
     "mdx": {
-      "server": "https://api.abacatepay.com/v1", 
+      "server": "https://api.abacatepay.com/v1",
       "auth": {
         "method": "bearer"
       }
     }
-},
+  },
   "navigation": {
     "tabs": [
       {
@@ -33,18 +33,19 @@
           },
           {
             "group": "Cliente",
-            "pages": [
-              "pages/client/reference",
-              "pages/client/create",
-              "pages/client/list"
-            ]
+            "pages": ["pages/client/reference", "pages/client/create", "pages/client/list"]
           },
           {
             "group": "Cobrança",
+            "pages": ["pages/payment/reference", "pages/payment/create", "pages/payment/list"]
+          },
+          {
+            "group": "Pix QR Code",
             "pages": [
-              "pages/payment/reference",
-              "pages/payment/create",
-              "pages/payment/list"
+              "pages/pix-qrcode/reference",
+              "pages/pix-qrcode/create",
+              "pages/pix-qrcode/simulate-payment",
+              "pages/pix-qrcode/check"
             ]
           }
         ]

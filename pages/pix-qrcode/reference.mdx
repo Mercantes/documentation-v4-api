@@ -1,0 +1,175 @@
+---
+title: 'Referência'
+description: 'Gere um QR Code e um código copia-e-cola para o seu cliente'
+icon: 'book-open-cover'
+---
+
+O termo "cobrança" é genérico. Ele representa um portal de um fluxo de pagamento onde você pode cobrar seu cliente e ele fazer todo o processo de pagamento sem nenhuma interrupção.
+
+Poderíamos chamar uma cobrança de portal, checkout, link de pagamento e por aí vai. Mas como você está cobrando seu cliente, nada mais justo que que chamar esse fluxo de cobrança.
+
+## <Icon icon="folder-tree" type="solid"/> Estrutura
+
+Uma cobrança é representada em nossa API pela seguinte estrutura:
+
+```json json
+{
+  "_id": "abc123uA0M0xwg5R4mSyr0n2PjHQXY",
+  "publicId": "pix_charabc123456789
+  "amount": 4000,
+  "status": "PAID",
+  "devMode": true,
+  "method": "PIX",
+  "brCode": "...",
+  "brCodeBase64": "...",
+  "platformFee": 80,
+  "description": "Pagamento PIX com AbacatePay",
+  "createdAt": "2024-12-06T18:56:15.538Z",
+  "updatedAt": "2024-12-06T18:56:15.538Z"
+  "expiresAt": "2024-12-06T18:56:15.538Z"
+}
+```
+
+## Atributos:
+
+<AccordionGroup>
+    <Accordion title="_Id:">
+        ```json json {2}
+        {
+        "_id": "abc123uA0M0xwg5R4mSyr0n2PjHQXY"
+        } 
+        ```
+        `_id` : <u> string. </u> <br />
+        Identificador único da cobrança.
+    </Accordion>
+
+    <Accordion title="Public Id:">
+        ```json json {2}
+        {
+        "publicId": "pix_char_abc123456789"
+        }
+        ```
+        `publicId` : <u> string. </u> <br />
+        Identificador público da cobrança PIX.
+    </Accordion>
+
+    <Accordion title="Amount:">
+        ```json json {2}
+        {
+        "amount": 4000
+        }
+        ```
+        `amount` : <u> number. </u> <br />
+        Valor da cobrança em centavos (ex: 4000 = R$ 40,00)
+    </Accordion>
+
+    <Accordion title="Status:">
+        ```json json {2}
+        {
+        "status": "PAID"
+        }
+        ```
+        `status` : <u> string. </u> <br />
+        Status da cobrança. Pode ser `PENDING`, `EXPIRED`, `CANCELLED`, `PAID`, `REFUNDED`.
+        <Info>
+            | Status       | Descrição |
+            | ----------- | ------------------------------------- |
+            | `PENDING`  | **A cobrança está com o pagamento pendente** |
+            | `EXPIRED`  | **O tempo limite de pagamento foi excedido** |
+            | `CANCELLED`| **A cobrança foi cancelada por você** |
+            | `PAID`     | **A cobrança foi paga com sucesso pelo cliente** |
+            | `REFUNDED` | **O valor foi devolvido ao cliente** |
+        </Info>
+    </Accordion>
+
+    <Accordion title="Dev Mode:">
+        ```json json {2}
+        {
+        "devMode": true
+        }
+        ```
+        `devMode` : <u> boolean. </u> <br />
+        Indica se a cobrança está em ambiente de testes (`true`) ou produção (`false`).
+    </Accordion>
+
+    <Accordion title="Method:">
+        ```json json {2}
+        {
+        "method": "PIX"
+        }
+        ```
+        `method` : <u> string. </u> <br />
+        Método de pagamento.
+    </Accordion>
+
+    <Accordion title="BR Code:">
+        ```json json {2}
+        {
+        "brCode": "..."
+        }
+        ```
+        `brCode` : <u> string. </u> <br />
+        Código PIX (copia-e-cola) para pagamento.
+    </Accordion>
+
+    <Accordion title="BR Code Base64:">
+        ```json json {2}
+        {
+        "brCodeBase64": "..."
+        }
+        ```
+        `brCodeBase64` : <u> string. </u> <br />
+        Código PIX no formato Base64 (útil para exibição em imagens).
+    </Accordion>
+
+    <Accordion title="Platform Fee:">
+        ```json json {2}
+        {
+        "platformFee": 80
+        }
+        ```
+        `platformFee` : <u> number. </u> <br />
+        Taxa da plataforma em centavos. Exemplo: `80` significa R$ 0,80.
+    </Accordion>
+
+    <Accordion title="Description:">
+        ```json json {2}
+        {
+        "description": "Pagamento PIX com AbacatePay"
+        }
+        ```
+        `description` : <u> string. </u> <br />
+        Descrição da cobrança.
+    </Accordion>
+
+    <Accordion title="Created At:">
+        ```json json {2}
+        {
+        "createdAt": "2024-12-06T18:56:15.538Z"
+        }
+        ```
+        `createdAt` : <u> date-time. </u> <br />
+        Data e hora da criação da cobrança.
+    </Accordion>
+
+    <Accordion title="Updated At:">
+        ```json json {2}
+        {
+        "updatedAt": "2024-12-06T18:56:15.538Z"
+        }
+        ```
+        `updatedAt` : <u> date-time. </u> <br />
+        Última atualização da cobrança.
+    </Accordion>
+
+    <Accordion title="Expires At:">
+        ```json json {2}
+        {
+        "expiresAt": "2024-12-06T18:56:15.538Z"
+        }
+        ```
+        `expiresAt` : <u> date-time. </u> <br />
+        Data e hora de expiração do QR Code.
+    </Accordion>
+
+</AccordionGroup>
