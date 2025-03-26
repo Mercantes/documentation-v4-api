@@ -328,8 +328,8 @@ paths:
                     example: 'Token de autenticação inválido ou ausente.'
   /pixQrCode/create:
     post:
-      summary: 'Criar'
-      description: Permite que você crie um código copia-e-cola e um QR Code para seu cliente fazer o pagamento.
+      summary: 'Criar QRCode PIX'
+      description: Permite que você crie um código copia-e-cola e um QRCode Pix para seu cliente fazer o pagamento.
       security:
         - bearerAuth: []
       requestBody:
@@ -350,7 +350,7 @@ paths:
                   description: Mensagem que aparecerá na hora do pagamento do PIX.
                 customer:
                   type: object
-                  description: Dados do cliente para identificação na cobrança.
+                  description: Os dados do seu cliente para criá-lo
                   required: ['name', 'cellphone', 'email', 'taxId']
                   additionalProperties: false
                   properties:
@@ -374,14 +374,16 @@ paths:
               additionalProperties: false
       responses:
         '200':
-          description: QR Code criado com sucesso
+          description: QRCode Pix criado com sucesso
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  charge:
+                  data:
                     $ref: '#/components/schemas/PixQRCode'
+                  error:
+                    type: null
         '401':
           description: Não autorizado. Falha na autenticação.
           content:
@@ -396,7 +398,7 @@ paths:
   /pixQrCode/check:
     get:
       summary: 'Checar Status'
-      description: Checar status do pagamento do QR Code PIX.
+      description: Checar status do pagamento do QRCode Pix.
       security:
         - bearerAuth: []
       responses:
@@ -407,15 +409,20 @@ paths:
               schema:
                 type: object
                 properties:
-                  status:
-                    type: string
-                    description: Informação sobre o andamento do QR Code.
-                    enum: ['PENDING', 'EXPIRED', 'CANCELLED', 'PAID', 'REFUNDED']
-                    example: 'PENDING'
-                  expiresAt:
-                    type: string
-                    description: Data de expiração do QR Code
-                    example: '2025-03-25T21:50:20.772Z'
+                  data:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        description: Informação sobre o andamento do QRCode Pix.
+                        enum: ['PENDING', 'EXPIRED', 'CANCELLED', 'PAID', 'REFUNDED']
+                        example: 'PENDING'
+                      expiresAt:
+                        type: string
+                        description: Data de expiração do QRCode Pix
+                        example: '2025-03-25T21:50:20.772Z'
+                  error:
+                    type: null
         '401':
           description: Não autorizado. Falha na autenticação.
           content:
@@ -428,16 +435,16 @@ paths:
                     description: Mensagem de erro descrevendo o motivo da falha na autenticação.
                     example: 'Token de autenticação inválido ou ausente.'
       parameters:
-        - name: publicId
+        - name: id
           in: query
-          description: ID publico da cobrança
+          description: ID do QRCode Pix
           required: true
           schema:
             type: string
   /pixQrCode/simulate-payment:
     post:
       summary: 'Simular Pagamento'
-      description: Simula o pagamento de uma cobrança criada no modo de desenvolvimento.
+      description: Simula o pagamento de um QRCode Pix criado no modo de desenvolvimento.
       security:
         - bearerAuth: []
       requestBody:
@@ -459,8 +466,10 @@ paths:
               schema:
                 type: object
                 properties:
-                  charge:
+                  data:
                     $ref: '#/components/schemas/PixQRCode'
+                  error:
+                    type: null
         '401':
           description: Não autorizado. Falha na autenticação.
           content:
@@ -473,9 +482,9 @@ paths:
                     description: Mensagem de erro descrevendo o motivo da falha na autenticação.
                     example: 'Token de autenticação inválido ou ausente.'
       parameters:
-        - name: publicId
+        - name: id
           in: query
-          description: ID publico da cobrança
+          description: ID do QRCode Pix
           required: true
           schema:
             type: string
@@ -611,38 +620,30 @@ components:
     PixQRCode:
       type: object
       properties:
-        publicId:
+        id:
           type: string
-          description: Identificador único do QR Code.
+          description: Identificador único do QRCode Pix.
           example: 'pix_char_123456'
-        accountId:
-          type: string
-          description: Identificador da conta que criou o QR Code.
-          example: 'abc12345'
-        storeId:
-          type: string
-          description: Identificador da loja que criou o QR Code.
-          example: 'abc12345'
         amount:
           type: number
-          description: Valor do QR Code.
+          description: Valor a ser pago.
           example: 100
         status:
           type: string
-          description: Informação sobre o andamento do QR Code.
+          description: Informação sobre o andamento do QRCode Pix.
           enum: ['PENDING', 'EXPIRED', 'CANCELLED', 'PAID', 'REFUNDED']
           example: 'PENDING'
         devMode:
           type: boolean
-          description: Ambiente no qual o QR Code foi criado.
+          description: Ambiente no qual o QRCode Pix foi criado.
           example: true
         brCode:
           type: string
-          description: Código copia-e-cola da cobrança PIX
+          description: Código copia-e-cola do QRCode Pix.
           example: '00020101021226950014br.gov.bcb.pix'
         brCodeBase64:
           type: string
-          description: Imagem em Base64 do QR Code.
+          description: Imagem em Base64 do QRCode Pix.
           example: 'data:image/png;base64,iVBORw0KGgoAAA'
         platformFee:
           type: number
@@ -650,15 +651,15 @@ components:
           example: 80
         createdAt:
           type: string
-          description: Data de criação do QR Code.
+          description: Data de criação do QRCode Pix.
           example: '2025-03-24T21:50:20.772Z'
         updatedAt:
           type: string
-          description: Data de atualização do QR Code.
+          description: Data de atualização do QRCode Pix.
           example: '2025-03-24T21:50:20.772Z'
         expiresAt:
           type: string
-          description: Data de expiração do QR Code
+          description: Data de expiração do QRCode Pix
           example: '2025-03-25T21:50:20.772Z'
   securitySchemes:
     bearerAuth:

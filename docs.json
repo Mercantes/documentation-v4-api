@@ -40,7 +40,7 @@
             "pages": ["pages/payment/reference", "pages/payment/create", "pages/payment/list"]
           },
           {
-            "group": "Pix QR Code",
+            "group": "Pix QRCode",
             "pages": [
               "pages/pix-qrcode/reference",
               "pages/pix-qrcode/create",
