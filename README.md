@@ -1,8 +1,8 @@
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="logo/dark.svg">
-    <source media="(prefers-color-scheme: light)" srcset="logo/light.svg">
-    <img alt="AbacatePay Logo" src="logo/light.svg" width="300">
+    <source media="(prefers-color-scheme: dark)" srcset="logo/dark.svg"></source>
+    <source media="(prefers-color-scheme: light)" srcset="logo/light.svg"></source>
+    <img alt="AbacatePay Logo" src="logo/light.svg" width="300"></img>
   </picture>
 </p>
 
