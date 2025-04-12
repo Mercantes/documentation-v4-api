@@ -47,7 +47,7 @@ mintlify dev
 ├── logo/           # Brand logos for light and dark themes
 ├── pages/          # Main documentation content
 ├── docs.json          # Mintlify configuration file for documentation settings
-├── favicon.svg        # Website favicon
+├── favicon.ico        # Website favicon
 ├── openapi.yaml       # OpenAPI/Swagger specification file
 └── README.md          # Project overview and setup instructions
 ```
