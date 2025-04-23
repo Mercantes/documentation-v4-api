@@ -347,6 +347,7 @@ paths:
                   description: Tempo de expiração da cobrança em segundos.
                 description:
                   type: string
+                  maxLength: 140
                   description: Mensagem que aparecerá na hora do pagamento do PIX.
                 customer:
                   type: object
