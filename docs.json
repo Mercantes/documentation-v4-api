@@ -28,7 +28,8 @@
               "pages/devmode",
               "pages/authentication",
               "pages/webhooks",
-              "pages/production"
+              "pages/production",
+              "pages/sdks"
             ]
           },
           {
