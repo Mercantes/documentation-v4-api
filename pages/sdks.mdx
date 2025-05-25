@@ -88,7 +88,7 @@ async function createPixPayment() {
       description: 'Pagamento de teste',
       expiresIn: 3600 // 1 hora
     });
-    
+
     console.log('QR Code:', payment.qrCode);
     console.log('Chave de cobrança:', payment.chargeKey);
   } catch (error) {
@@ -102,28 +102,38 @@ createPixPayment();
 ```python Python
 # Instalação: pip install abacatepay
 from abacatepay import AbacatePay
+from abacatepay.products import Product
 
 # Inicialize o cliente com sua chave de API
 client = AbacatePay(
     api_key="sua_chave_api",
-    environment="production"  # ou "sandbox" para ambiente de testes
 )
 
-# Crie um pagamento PIX
-def create_pix_payment():
-    try:
-        payment = client.payments.create_pix(
-            value=1000,  # R$ 10,00
-            description="Pagamento de teste",
-            expires_in=3600  # 1 hora
-        )
-        
-        print(f"QR Code: {payment.qr_code}")
-        print(f"Chave de cobrança: {payment.charge_key}")
-    except Exception as e:
-        print(f"Erro ao criar pagamento: {e}")
+products = [
+    Product(
+        external_id="123",
+        name="Produto de teste",
+        quantity=1,
+        price=50_00,
+        description="Example product"
+    ),
+    # Ou como dicionário
+    {
+        'external_id': "321",
+        'name': "Product as dict",
+        'quantity': 1,
+        'price': 10_00,
+        'description': "Example using dict"
+    }
+]
 
-create_pix_payment()
+billing = client.billing.create(
+    products=products,
+    return_url="https://yourwebsite.com/return",
+    completion_url="https://yourwebsite.com/complete"
+)
+
+print(billing.data.url)
 ```
 
 ```php PHP
@@ -146,7 +156,7 @@ try {
         'description' => 'Pagamento de teste',
         'expiresIn' => 3600 // 1 hora
     ]);
-    
+
     echo "QR Code: " . $payment->qrCode . "\n";
     echo "Chave de cobrança: " . $payment->chargeKey . "\n";
 } catch (Exception $e) {
