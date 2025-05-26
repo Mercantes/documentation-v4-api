@@ -120,7 +120,7 @@ paths:
                 type: object
                 properties:
                   data:
-                    $ref: '#/components/schemas/Coupon'
+                    $ref: '#/components/schemas/CouponResponse'
                   error:
                     type: null
         '401':
@@ -152,7 +152,7 @@ paths:
                     type: array
                     description: Lista de cupons.
                     items:
-                      $ref: '#/components/schemas/Coupon'
+                      $ref: '#/components/schemas/CouponResponse'
                   error:
                     type: null
         '401':
@@ -551,6 +551,62 @@ components:
           type: object
           description: Objeto chave valor para metadados do cupom
           default: {}
+    CouponResponse:
+      type: object
+      description: Os dados do seu cupom.
+      required: ['id', 'discount', 'discountKind', 'status', 'createdAt', 'updatedAt']
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+          description: Identificador único do cupom
+          example: DEYVIN_20
+        notes:
+          type: string
+          description: Descrição sobre o cupom
+          example: Cupom de desconto pro meu público
+        maxRedeems:
+          type: integer
+          description: Quantidade de vezes em que o cupom pode ser resgatado. -1 significa ilimitado.
+          example: -1
+          default: 10
+        redeemsCount:
+          type: integer
+          description: Quantidade de vezes que o cupom já foi resgatado.
+          example: 0
+        discountKind:
+          type: string
+          description: Tipo de desconto aplicado, porcentagem ou fixo
+          enum: ['PERCENTAGE', 'FIXED']
+          example: PERCENTAGE
+        discount:
+          type: number
+          description: Valor de desconto a ser aplicado
+          example: 123
+        devMode:
+          type: boolean
+          description: Indica se o cupom foi criado em ambiente de testes.
+          example: true
+        status:
+          type: string
+          description: Status atual do cupom.
+          enum: ['ACTIVE', 'INACTIVE', 'EXPIRED']
+          example: ACTIVE
+        createdAt:
+          type: string
+          format: date-time
+          description: Data de criação do cupom.
+          example: '2025-05-25T23:43:25.250Z'
+        updatedAt:
+          type: string
+          format: date-time
+          description: Data de atualização do cupom.
+          example: '2025-05-25T23:43:25.250Z'
+        metadata:
+          type: object
+          description: Objeto chave valor para metadados do cupom
+          default: {}
+
     Billing:
       type: object
       properties:
