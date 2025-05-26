@@ -102,3 +102,87 @@ app.post('/webhook/abacatepay', (req, res) => {
   res.status(200).json({ received: true });
 });
 ```
+
+## <Icon icon="bell" type="solid"/> Eventos Suportados
+
+Atualmente, suportamos os seguintes eventos:
+
+### `billing.paid`
+
+Este evento é disparado quando um pagamento é confirmado. O payload varia dependendo da origem do pagamento:
+
+#### Pagamento via PIX QR Code
+
+```json
+{
+  "data": {
+    "payment": {
+      "amount": 1000,
+      "fee": 80,
+      "method": "PIX"
+    },
+    "pixQrCode": {
+      "amount": 1000,
+      "id": "pix_char_mXTWdj6sABWnc4uL2Rh1r6tb",
+      "kind": "PIX",
+      "status": "PAID"
+    }
+  },
+  "devMode": false,
+  "event": "billing.paid"
+}
+```
+
+#### Pagamento via Cobrança
+
+```json
+{
+  "data": {
+    "payment": {
+      "amount": 1000,
+      "fee": 80,
+      "method": "PIX"
+    },
+    "billing": {
+      "amount": 1000,
+      "couponsUsed": [],
+      "customer": {
+        "id": "cust_4hnLDN3YfUWrwQBQKYMwL6Ar",
+        "metadata": {
+          "cellphone": "11111111111",
+          "email": "christopher@abacatepay.com",
+          "name": "Christopher Ribeiro",
+          "taxId": "12345678901"
+        }
+      },
+      "frequency": "ONE_TIME",
+      "id": "bill_QgW1BT3uzaDGR3ANKgmmmabZ",
+      "kind": [
+        "PIX"
+      ],
+      "paidAmount": 1000,
+      "products": [
+        {
+          "externalId": "123",
+          "id": "prod_RGKGsjBWsJwRn1mHyGMFJNjP",
+          "quantity": 1
+        }
+      ],
+      "status": "PAID"
+    }
+  },
+  "devMode": false,
+  "event": "billing.paid"
+}
+```
+
+<Card title="Nota Importante" icon="info" horizontal>
+  * O campo `devMode` indica se o evento ocorreu no ambiente de desenvolvimento
+  * Todos os valores monetários são expressos em centavos
+  * O campo `fee` representa a taxa cobrada pela AbacatePay
+  * O campo `event` identifica o tipo de evento recebido
+</Card>
+
+<Card title="Precisa de ajuda?" icon="headset" color="#25c2a0">
+  Nossa equipe está disponível para auxiliar na implementação de webhooks. Entre em contato pelo e-mail <Icon icon="envelope" type="solid"/> ajuda@abacatepay.com
+</Card>
