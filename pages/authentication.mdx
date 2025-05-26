@@ -16,9 +16,9 @@ Gerencie suas chaves de API diretamente em nossa plataforma. Você pode:
 - Revogar chaves existentes
 
 <Card title="Ambientes e Chaves de API" icon="book" horizontal>
-  As chaves de API são específicas para cada ambiente:
-  - Chaves criadas em **dev mode** funcionam apenas no ambiente de testes
-  - Chaves criadas em **produção** funcionam apenas com dados reais
+  Todas as requisições são enviadas para o mesmo endpoint (`https://api.abacatepay.com`), mas o ambiente é determinado pela chave de API utilizada:
+  - Chaves criadas em **dev mode** processam transações no ambiente de testes
+  - Chaves criadas em **produção** processam transações reais
   
   Saiba mais sobre o ambiente de desenvolvimento <a href="./devmode">aqui</a>.
 </Card>
@@ -87,3 +87,7 @@ curl -X POST https://api.abacatepay.com/v1/payments \
   -H "Content-Type: application/json" \
   -d '{"amount": 1000}'
 ```
+
+<Card title="Nota Importante" icon="info" horizontal>
+  O mesmo endpoint (`https://api.abacatepay.com`) é usado tanto para o ambiente de desenvolvimento quanto para produção. O ambiente é determinado automaticamente pela chave de API utilizada na requisição.
+</Card>
