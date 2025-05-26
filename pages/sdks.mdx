@@ -10,12 +10,12 @@ icon: 'boxes-stacked'
 
 ## <Icon icon="code" type="solid"/>  O que são os SDKs da AbacatePay?
 
-Os SDKs (Software Development Kits) da AbacatePay são bibliotecas que abstraem a complexidade de se comunicar diretamente com nossa API RESTful. Eles oferecem uma interface amigável e específica para cada linguagem, permitindo que você integre rapidamente nossos serviços de pagamento ao seu aplicativo ou sistema.
+Os SDKs (Software Development Kits) da AbacatePay são bibliotecas que simplificam a comunicação com nossa API. Eles oferecem uma interface amigável e específica para cada linguagem, permitindo que você integre rapidamente nossos serviços de pagamento ao seu aplicativo.
 
 <Card title="Benefícios de usar nossos SDKs" icon="star" horizontal>
   * **Integração simplificada**: Funções prontas para todos os endpoints da API
-  * **Tipagem forte**: Em linguagens com suporte a tipos, oferecemos interfaces completas
-  * **Tratamento de erros**: Lidamos com os casos de erro mais comuns
+  * **Tipagem forte**: Interfaces completas em linguagens com suporte a tipos
+  * **Tratamento de erros**: Gerenciamento automático dos casos de erro mais comuns
   * **Menor curva de aprendizado**: Não é necessário conhecer todos os detalhes da API
   * **Atualizações frequentes**: Mantemos os SDKs atualizados com as mais recentes funcionalidades
 </Card>
@@ -28,38 +28,38 @@ Oferecemos SDKs oficiais para diversas linguagens de programação. Escolha o qu
   <Tab title="Backend">
     <CardGroup cols={2}>
       <Card title="Node.js" icon="node-js" color="#68A063" href="https://github.com/AbacatePay/abacatepay-nodejs-sdk">
-        SDK oficial para Node.js, compatível com TypeScript.
+        SDK oficial para Node.js, compatível com TypeScript e ES modules.
       </Card>
       <Card title="Python" icon="python" color="#366B98" href="https://github.com/AbacatePay/abacatepay-python-sdk">
-        SDK oficial para Python 3.6+, com suporte a async/await.
+        SDK oficial para Python 3.6+, com suporte a async/await e type hints.
       </Card>
       <Card title="Java" icon="java" color="#E76F00" href="https://github.com/AbacatePay/abacatepay-java-sdk">
-        SDK oficial para Java 8+, compatível com Spring Boot.
+        SDK oficial para Java 8+, compatível com Spring Boot e Jakarta EE.
       </Card>
       <Card title="PHP" icon="php" color="#777BB3" href="https://github.com/AbacatePay/abacatepay-php-sdk">
-        SDK oficial para PHP 7.4+, com suporte a Composer.
+        SDK oficial para PHP 7.4+, com suporte a Composer e PSR standards.
       </Card>
       <Card title="Ruby" icon="gem" color="#CC342D" href="https://github.com/AbacatePay/abacatepay-ruby-sdk">
-        SDK oficial para Ruby 2.6+, disponível como gem.
+        SDK oficial para Ruby 2.6+, disponível como gem e com suporte a Rails.
       </Card>
       <Card title="Go" icon="go" color="#00ADD8" href="https://github.com/AbacatePay/abacatepay-go-sdk">
-        SDK oficial para Go 1.13+, com suporte a módulos.
-      </Card>
-    </CardGroup>
-  </Tab>
-  <Tab title="Mobile & Outros">
-    <CardGroup cols={2}>
-      <Card title="Kotlin" icon="android" color="#7F52FF" href="https://github.com/AbacatePay/abacatepay-kotlin-sdk">
-        SDK oficial para Kotlin, ideal para aplicativos Android.
-      </Card>
-      <Card title="Swift" icon="apple" color="#F05138" href="https://github.com/AbacatePay/abacatepay-swift-sdk">
-        SDK oficial para Swift, ideal para aplicativos iOS.
+        SDK oficial para Go 1.13+, com suporte a módulos e generics.
       </Card>
       <Card title="Rust" icon="rust" color="#DEA584" href="https://github.com/AbacatePay/abacatepay-rust-sdk">
         SDK oficial para Rust, com foco em segurança e performance.
       </Card>
       <Card title="Elixir" icon="elixir" color="#6E4A7E" href="https://github.com/AbacatePay/abacatepay-elixir-sdk">
-        SDK oficial para Elixir, ideal para aplicações escaláveis.
+        SDK oficial para Elixir, ideal para aplicações escaláveis e distribuídas.
+      </Card>
+    </CardGroup>
+  </Tab>
+  <Tab title="Mobile">
+    <CardGroup cols={2}>
+      <Card title="Kotlin" icon="android" color="#7F52FF" href="https://github.com/AbacatePay/abacatepay-kotlin-sdk">
+        SDK oficial para Kotlin, ideal para aplicativos Android modernos.
+      </Card>
+      <Card title="Swift" icon="apple" color="#F05138" href="https://github.com/AbacatePay/abacatepay-swift-sdk">
+        SDK oficial para Swift, ideal para aplicativos iOS e macOS.
       </Card>
     </CardGroup>
   </Tab>
@@ -71,29 +71,33 @@ Veja como é simples usar nossos SDKs em algumas das linguagens mais populares:
 
 <CodeGroup>
 ```javascript Node.js
-// Instalação: npm install @abacatepay/sdk
-const AbacatePay = require('@abacatepay/sdk');
+// Instalação: npm install abacatepay-nodejs-sdk
+import AbacatePay from 'abacatepay-nodejs-sdk';
 
 // Inicialize o cliente com sua chave de API
-const client = new AbacatePay({
-  apiKey: 'sua_chave_api',
-  environment: 'production' // ou 'sandbox' para ambiente de testes
-});
+const abacate = AbacatePay('your_api_key');
 
 // Crie um pagamento PIX
 async function createPixPayment() {
-  try {
-    const payment = await client.payments.createPix({
-      value: 1000, // R$ 10,00
-      description: 'Pagamento de teste',
-      expiresIn: 3600 // 1 hora
-    });
+  const billing = await abacate.billing.create({
+    frequency: "ONE_TIME",
+    methods: ["PIX"],
+    products: [
+      {
+        externalId: "PRO-PLAN",
+        name: "Pro plan",
+        quantity: 1,
+        price: 1000 // Amount in cents
+      }
+    ],
+    returnUrl: "https://yoursite.com/app",
+    completionUrl: "https://yoursite.com/payment/success",
+    customer: {
+      email: 'customer@example.com'
+    }
+  });
 
-    console.log('QR Code:', payment.qrCode);
-    console.log('Chave de cobrança:', payment.chargeKey);
-  } catch (error) {
-    console.error('Erro ao criar pagamento:', error);
-  }
+  return billing
 }
 
 createPixPayment();
@@ -107,8 +111,10 @@ from abacatepay.products import Product
 # Inicialize o cliente com sua chave de API
 client = AbacatePay(
     api_key="sua_chave_api",
+    environment="production"  # ou "sandbox" para ambiente de testes
 )
 
+# Crie produtos para a cobrança
 products = [
     Product(
         external_id="123",
@@ -127,13 +133,14 @@ products = [
     }
 ]
 
+# Crie uma cobrança
 billing = client.billing.create(
     products=products,
     return_url="https://yourwebsite.com/return",
     completion_url="https://yourwebsite.com/complete"
 )
 
-print(billing.data.url)
+print(f"URL da cobrança: {billing.data.url}")
 ```
 
 ```php PHP
@@ -183,17 +190,16 @@ try {
   Entre em contato conosco em <Icon icon="envelope" type="solid"/> ajuda@abacatepay.com informando qual linguagem você precisa. Também aceitamos contribuições da comunidade!
 </Accordion>
 
-<br />
-
 ## <Icon icon="book" type="solid"/>  Recursos Adicionais
 
 <CardGroup cols={2}>
   <Card title="Webhooks" icon="webhook" href="./webhooks">
     Aprenda a configurar webhooks para receber notificações de eventos.
   </Card>
+  <Card title="Ambiente de Desenvolvimento" icon="code" href="./devmode">
+    Saiba como usar o ambiente de desenvolvimento para testar suas integrações.
+  </Card>
 </CardGroup>
-
-<br />
 
 <Card title="Precisa de ajuda com integração?" icon="headset" color="#25c2a0">
   Nossa equipe está disponível para ajudar com qualquer dúvida sobre nossos SDKs. Entre em contato pelo e-mail <Icon icon="envelope" type="solid"/> ajuda@abacatepay.com
