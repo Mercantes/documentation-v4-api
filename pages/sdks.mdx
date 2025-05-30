@@ -111,7 +111,6 @@ from abacatepay.products import Product
 # Inicialize o cliente com sua chave de API
 client = AbacatePay(
     api_key="sua_chave_api",
-    environment="production"  # ou "sandbox" para ambiente de testes
 )
 
 # Crie produtos para a cobrança
@@ -179,7 +178,7 @@ try {
 </Accordion>
 
 <Accordion title="Os SDKs funcionam tanto em modo de desenvolvimento quanto em produção?">
-  Sim! Todos os nossos SDKs suportam ambos os ambientes. Basta configurar o parâmetro `environment` ao inicializar o cliente para `sandbox` ou `production`.
+  Sim! Todos os nossos SDKs suportam ambos os ambientes. Em alguns casos, é preciso configurar o parâmetro `environment` ao inicializar o cliente para `sandbox` ou `production`, ou basta usar a chave de api do ambiente desejado.
 </Accordion>
 
 <Accordion title="O que fazer se encontrar um bug em um SDK?">
