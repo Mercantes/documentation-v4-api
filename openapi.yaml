@@ -249,7 +249,7 @@ paths:
                   example: 'cust_abcdefghij'
                 customer:
                   type: object
-                  description: Os dados do seu cliente para criá-lo
+                  description: Dados do seu cliente. Caso o cliente não exista ele será criado.
                   required: ['name', 'cellphone', 'email', 'taxId']
                   additionalProperties: false
                   properties:
