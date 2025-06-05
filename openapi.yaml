@@ -351,7 +351,9 @@ paths:
                   description: Mensagem que aparecerá na hora do pagamento do PIX.
                 customer:
                   type: object
-                  description: Os dados do seu cliente para criá-lo
+                  description: |
+                    Os dados do seu cliente para criá-lo.
+                    O objeto de customer não é obrigatório, mas ao informar qualquer informação do `customer` todos os campos `name`, `cellphone`, `email` e `taxId` são obrigatórios.
                   required: ['name', 'cellphone', 'email', 'taxId']
                   additionalProperties: false
                   properties:
