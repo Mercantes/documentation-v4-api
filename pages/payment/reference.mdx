@@ -6,7 +6,13 @@ icon: "book-open-cover"
 
 O termo "cobrança" é genérico. Ele representa um portal de um fluxo de pagamento onde você pode cobrar seu cliente e ele fazer todo o processo de pagamento sem nenhuma interrupção.
 
-Atualmente uma cobrança pode ser de duas formas, `ONE_TIME` para pagamentos únicos onde é preciso enviar os dados do seu cliente e `MULTIPLE_PAYMENTS` onde a cobrança age como um checkout sem a necessidade de enviar os dados do seu cliente pois eles mesmos irão inserir os dados.
+Atualmente uma cobrança pode ser de duas formas: 
+- `ONE_TIME` para cobranças que serão pagas uma única vez.  preciso enviar os dados do seu cliente. Para cobrançar `ONE_TIME` é obrigatório informar o cliente ao criar a cobrança por meio dos campos `customerId` ou `customer`. 
+  - Só é necessário fornecer uma das opções de identificador do cliente: `customerId` **OU** `customer`.
+- `MULTIPLE_PAYMENTS` é uma cobrança que pode ser paga multiplas vezes e por múltiplas pessoas diferentes. **Ex:** utilização de um único link de pagamento para vender um produto para múltiplas pessoas.
+  - Para cobranças `MULTIPLE_PAYMENTS` o usuário informará informações como CPF, nome e email na página do checkout.
+
+
 
 ## <Icon icon="folder-tree" type="solid"/> Estrutura
 
