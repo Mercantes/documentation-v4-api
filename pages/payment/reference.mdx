@@ -49,6 +49,8 @@ Uma cobrança é representada em nossa API pela seguinte estrutura:
     "completionUrl": "https://example.com/completion"
   },
   "nextBilling": null,
+  "allowCoupons": false,
+  "coupons": [],
   "createdAt": "2024-12-06T18:56:15.538Z",
   "updatedAt": "2024-12-06T18:56:15.538Z"
 }
@@ -201,6 +203,26 @@ Uma cobrança é representada em nossa API pela seguinte estrutura:
 
         `nextBilling` : <u> date-time | null. </u> <br />
         Data e hora da próxima cobrança, ou null para cobranças únicas
+    </Accordion>
+    <Accordion title="allowCoupons:">
+        ```json json {2}
+        {
+          "allowCoupons": false,
+        }
+        ```
+
+        `allowCoupons` : <u> bool | null. </u> <br />
+        Permite ou não cupons para a cobrança
+    </Accordion>
+    <Accordion title="coupons:">
+        ```json json {2}
+        {
+          "coupons": [],
+        }
+        ```
+
+        `coupons` :<u> array </u> <br />
+        Cupons permitidos na cobrança. Só são considerados os cupons se `allowCoupons` é verdadeiro.
     </Accordion>
 
 </AccordionGroup>
