@@ -50,7 +50,7 @@ paths:
                   data:
                     $ref: '#/components/schemas/Customer'
                   error:
-                    type: null
+                    type: 'null'
         '401':
           description: Não autorizado. Falha na autenticação.
           content:
@@ -82,7 +82,7 @@ paths:
                     items:
                       $ref: '#/components/schemas/Customer'
                   error:
-                    type: null
+                    type: 'null'
         '401':
           description: Não autorizado. Falha na autenticação.
           content:
@@ -110,7 +110,7 @@ paths:
                 data:
                   $ref: '#/components/schemas/Coupon'
                 error:
-                  type: null
+                  type: 'null'
       responses:
         '200':
           description: Cliente criado com sucesso.
@@ -122,7 +122,7 @@ paths:
                   data:
                     $ref: '#/components/schemas/CouponResponse'
                   error:
-                    type: null
+                    type: 'null'
         '401':
           description: Não autorizado. Falha na autenticação.
           content:
@@ -154,7 +154,7 @@ paths:
                     items:
                       $ref: '#/components/schemas/CouponResponse'
                   error:
-                    type: null
+                    type: 'null'
         '401':
           description: Não autorizado. Falha na autenticação.
           content:
@@ -269,6 +269,20 @@ paths:
                       type: string
                       description: CPF ou CNPJ do cliente.
                       example: 123.456.789-01
+                allowCoupons: 
+                  type: boolean
+                  default: false
+                  example: false
+                  description: Se verdadeiro cupons podem ser usados na billing
+                coupons: 
+                  type: array
+                  description: Lista de cupons disponíveis para resem usados com a billing
+                  example: ['ABKT10', "ABKT5", "PROMO10"]
+                  default: []
+                  maxItems: 50
+                  items:
+                    type: string
+
               required: ['frequency', 'methods', 'products', 'returnUrl', 'completionUrl']
               additionalProperties: false
       responses:
@@ -282,7 +296,7 @@ paths:
                   data:
                     $ref: '#/components/schemas/Billing'
                   error:
-                    type: null
+                    type: 'null'
         '401':
           description: Não autorizado. Falha na autenticação.
           content:
@@ -314,7 +328,7 @@ paths:
                     items:
                       $ref: '#/components/schemas/Billing'
                   error:
-                    type: null
+                    type: 'null'
         '401':
           description: Não autorizado. Falha na autenticação.
           content:
@@ -386,7 +400,7 @@ paths:
                   data:
                     $ref: '#/components/schemas/PixQRCode'
                   error:
-                    type: null
+                    type: 'null'
         '401':
           description: Não autorizado. Falha na autenticação.
           content:
@@ -425,7 +439,7 @@ paths:
                         description: Data de expiração do QRCode Pix
                         example: '2025-03-25T21:50:20.772Z'
                   error:
-                    type: null
+                    type: 'null'
         '401':
           description: Não autorizado. Falha na autenticação.
           content:
@@ -472,7 +486,7 @@ paths:
                   data:
                     $ref: '#/components/schemas/PixQRCode'
                   error:
-                    type: null
+                    type: 'null'
         '401':
           description: Não autorizado. Falha na autenticação.
           content:
@@ -669,11 +683,23 @@ components:
           format: date-time
           nullable: true
           description: Data e hora da próxima cobrança, ou null para cobranças únicas.
-          example: null
+          example: 'null'
         customer:
           type: object
           nullable: true
           $ref: '#/components/schemas/Customer'
+        allowCoupons: 
+          type: boolean
+          nullable: true
+          default: false
+          description: Se verdadeiro cupons podem ser usados na billing
+        coupons: 
+          type: array
+          description: Lista de cupons disponíveis para resem usados com a billing
+          nullable: true
+          default: []
+          items:
+            type: string
       required:
         ['id', 'url', 'amount', 'status', 'devMode', 'methods', 'products', 'frequency', 'createdAt', 'updatedAt']
     PixQRCode:
