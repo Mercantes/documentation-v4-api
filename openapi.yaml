@@ -751,3 +751,4 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT
+      description: Cabeçalho de autenticação Bearer no formato `Bearer <abacatepay-api-key>` onde `<abacatepay-api-key>` é a sua chave de API. 
