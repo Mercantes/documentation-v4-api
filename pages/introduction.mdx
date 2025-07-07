@@ -1,13 +1,13 @@
 ---
 title: Comece aqui
-icon: 'Avocado'
-description: "Pegue seu café e aprenda sobre a AbacatePay!"
+icon: 'flag'
+description: "Pegue seu café e aprenda sobre a V4Pay!"
 ---
-Nesta documentação você encontrará tudo o que precisa para integrar com a API da AbacatePay. Desenvolvida por desenvolvedores para desenvolvedores, nossa plataforma foi projetada para ser intuitiva e fácil de usar.
+Nesta documentação você encontrará tudo o que precisa para integrar com a API da V4Pay. Desenvolvida por desenvolvedores para desenvolvedores, nossa plataforma foi projetada para ser intuitiva e fácil de usar.
 
-## <Icon icon="Avocado" type="solid"/>  O que é a AbacatePay?
+## <Icon icon="flag" type="solid"/>  O que é a V4Pay?
 
-A AbacatePay é um gateway de pagamento que surgiu da nossa própria necessidade de simplificar cobranças em nossos produtos. Percebemos que os meios de pagamento existentes eram excessivamente complexos:
+A V4Pay é um gateway de pagamento que surgiu da nossa própria necessidade de simplificar cobranças em nossos produtos. Percebemos que os meios de pagamento existentes eram excessivamente complexos:
 - Documentações extensas e confusas
 - Processos de homologação longos e burocráticos
 - Múltiplas formas de realizar a mesma operação
@@ -17,7 +17,7 @@ Nossa solução? Uma plataforma que transforma a complexidade das Fintechs em um
 
 ```javascript
 // Exemplo de criação de cobrança
-const payment = await abacatePay.payments.create({
+const payment = await v4pay.payments.create({
   amount: 1000,
   description: "Serviço prestado"
 });
@@ -29,14 +29,14 @@ Nossa API foi construída com três princípios fundamentais:
 
 1. **Baseada em intenção**: Cada endpoint representa exatamente o que você lê
    ```
-   POST /billing/create    // Cria um pagamento
-   GET /billing/get       // Busca um pagamento específico
+   POST /charge/create    // Cria um pagamento
+   GET /charge/get       // Busca um pagamento específico
    ```
 
 2. **Indempotente**: Execute a mesma requisição quantas vezes precisar, sem efeitos colaterais
    ```javascript
    // Seguro para executar múltiplas vezes
-   await abacatePay.billing.create({...});
+   await v4Pay.billing.create({...});
    ```
 
 3. **Consistente**: Nossa API retorna sempre um option contendo o erro ou os dados de retorno, o que facilita a implementação em linguagens de tipagem forte e constistência em todas as operações.
@@ -44,7 +44,7 @@ Nossa API foi construída com três princípios fundamentais:
    {
      "data": {
          "id": "bill_12345667",
-         "url": "https://abacatepay.com/pay/bill_12345667",
+         "url": "https://v4pay.com/pay/bill_12345667",
          "amount": 1000,
          "status": "PENDING",
          "devMode": true,
@@ -68,4 +68,4 @@ Para facilitar ainda mais, oferecemos SDKs oficiais e suporte a modo de desenvol
 
 ## <Icon icon="cloud" type="solid"/>  Dúvidas? 
 
-Nossa equipe está sempre pronta para ajudar! Entre em contato pelo email <Icon icon="envelope" type="solid"/> ajuda@abacatepay.com
+Nossa equipe está sempre pronta para ajudar! Entre em contato pelo email <Icon icon="envelope" type="solid"/> ajuda@v4pay.com

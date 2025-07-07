@@ -1,12 +1,12 @@
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="logo/dark.svg"></source>
-    <source media="(prefers-color-scheme: light)" srcset="logo/light.svg"></source>
-    <img alt="AbacatePay Logo" src="logo/light.svg" width="300"></img>
+    <source media="(prefers-color-scheme: dark)" srcset="/logo/red.svg"></source>
+    <source media="(prefers-color-scheme: light)" srcset="/logo/red.svg"></source>
+    <img alt="V4Pay Logo" src="/logo/red.svg" width="300"></img>
   </picture>
 </p>
 
-# AbacatePay Documentation
+# V4Pay Documentation
 
 [![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](CONTRIBUTING.md)
 
@@ -78,4 +78,4 @@ See [Mintlify GitHub App Documentation](https://mintlify.com/docs/settings/githu
 ## 💪 Support
 
 - Join our [Discord community](https://discord.gg/CP57mm7EFk)
-- Report issues on [GitHub](https://github.com/abacatepay/documentation/issues)
+- Report issues on [GitHub](https://github.com/v4pay/documentation/issues)

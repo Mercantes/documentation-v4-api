@@ -32,14 +32,14 @@ Gerencie seus webhooks diretamente em nossa plataforma. Você pode:
 
 ## Como criar seu webhook
 
-Siga estes passos no dashboard da AbacatePay:
+Siga estes passos no dashboard da V4Pay:
 
 <Steps>
   <Step title="Acesse a Seção de Webhooks">
     <Card>
       <img
         src="/images/criar-webhook.png"
-        alt="Interface da plataforma AbacatePay mostrando a seção de webhooks"
+        alt="Interface da plataforma V4Pay mostrando a seção de webhooks"
       />
       <Card title="Navegue até a seção Integrar e clique em Webhooks">
         Inicie o processo de configuração de um novo webhook
@@ -76,12 +76,12 @@ Cada notificação enviada para seu webhook inclui o secret configurado como par
 
 URL base do seu webhook:
 ```
-https://meusite.com/webhook/abacatepay
+https://meusite.com/webhook/v4pay
 ```
 
 URL com secret (como será chamado):
 ```
-https://meusite.com/webhook/abacatepay?webhookSecret=seu_secret_aqui
+https://meusite.com/webhook/v4pay?webhookSecret=seu_secret_aqui
 ```
 
 ### Exemplo de Implementação
@@ -150,8 +150,8 @@ Este evento é disparado quando um pagamento é confirmado. O payload varia depe
         "id": "cust_4hnLDN3YfUWrwQBQKYMwL6Ar",
         "metadata": {
           "cellphone": "11111111111",
-          "email": "christopher@abacatepay.com",
-          "name": "Christopher Ribeiro",
+          "email": "joso@v4epay.com",
+          "name": "João Ribeiro",
           "taxId": "12345678901"
         }
       },

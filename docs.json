@@ -1,16 +1,20 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "AbacatePay",
-  "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+  "name": "V4Pay",
+  "logo": {
+    "light": "/logo/red.svg",
+    "dark": "/logo/red.svg"
   },
   "favicon": "/favicon.ico",
+  "colors": {
+    "primary": "#e50914",
+    "light": "#F87171",
+    "dark": "#B91C1C"
+  },
   "api": {
     "mdx": {
-      "server": "https://api.abacatepay.com/v1",
+      "server": "https://api.v4pay.com/v1",
       "auth": {
         "method": "bearer"
       }
@@ -27,31 +31,31 @@
               "pages/introduction",
               "pages/devmode",
               "pages/authentication",
-              "pages/webhooks",
+              "pages/webhook",
               "pages/production",
               "pages/sdks"
             ]
           },
           {
             "group": "Cliente",
-            "pages": ["pages/client/reference", "pages/client/create", "pages/client/list"]
+            "pages": ["pages/costumers/reference", "pages/costumers/create", "pages/costumers/list"]
           },
           {
             "group": "Cobrança",
-            "pages": ["pages/payment/reference", "pages/payment/create", "pages/payment/list"]
+            "pages": ["pages/charges/reference", "pages/charges/create", "pages/charges/list"]
           },
           {
             "group": "Pix QRCode",
             "pages": [
-              "pages/pix-qrcode/reference",
-              "pages/pix-qrcode/create",
-              "pages/pix-qrcode/simulate-payment",
-              "pages/pix-qrcode/check"
+              "pages/pix/reference",
+              "pages/pix/create",
+              "pages/pix/simulate-payment",
+              "pages/pix/check/"
             ]
           },
           {
             "group": "Cupom",
-            "pages": ["pages/coupon/reference", "pages/coupon/create", "pages/coupon/list"]
+            "pages": ["pages/coupons/reference", "pages/coupons/create", "pages/coupons/list"]
           }
         ]
       },
@@ -61,28 +65,24 @@
       }
     ]
   },
-  "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
-  },
   "navbar": {
     "links": [
       {
-        "label": "Repositorio",
-        "href": "https://github.com/AbacatePay/documentation"
+        "label": "Repositório",
+        "href": "https://github.com/v4pay/documentation"
       }
     ],
     "primary": {
       "type": "button",
       "label": "Dashboard",
-      "href": "https://www.abacatepay.com/app"
+      "href": "https://www.v4pay.com/app"
     }
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/abacatepay",
-      "github": "https://github.com/AbacatePay",
-      "linkedin": "https://br.linkedin.com/company/abacatepay?trk=public_post_feed-actor-name"
+      "x": "https://x.com/v4pay",
+      "github": "https://github.com/v4pay",
+      "linkedin": "https://br.linkedin.com/company/v4pay"
     }
   }
 }

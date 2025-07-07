@@ -5,7 +5,7 @@ icon: 'lock'
 ---
 
 <Tip>
-  **Chave de API**: Sua credencial de acesso à API da AbacatePay. Esta chave identifica sua conta e autoriza suas requisições. **IMPORTANTE**: Sem a chave de API, as requisições serão recusadas.
+  **Chave de API**: Sua credencial de acesso à API da V4Pay. Esta chave identifica sua conta e autoriza suas requisições. **IMPORTANTE**: Sem a chave de API, as requisições serão recusadas.
 </Tip> 
 
 ## <Icon icon="lock" type="solid"/>  Gerenciando chaves de API
@@ -16,7 +16,7 @@ Gerencie suas chaves de API diretamente em nossa plataforma. Você pode:
 - Revogar chaves existentes
 
 <Card title="Ambientes e Chaves de API" icon="book" horizontal>
-  Todas as requisições são enviadas para o mesmo endpoint (`https://api.abacatepay.com`), mas o ambiente é determinado pela chave de API utilizada:
+  Todas as requisições são enviadas para o mesmo endpoint (`https://api.v4pay.com`), mas o ambiente é determinado pela chave de API utilizada:
   - Chaves criadas em **dev mode** processam transações no ambiente de testes
   - Chaves criadas em **produção** processam transações reais
   
@@ -41,14 +41,14 @@ Gerencie suas chaves de API diretamente em nossa plataforma. Você pode:
 
 ## Como criar sua chave de API
 
-Siga estes passos no dashboard da AbacatePay:
+Siga estes passos no dashboard da V4Pay:
 
 <Steps>
   <Step title="Acesse a Seção de Integração">
     <Card>
       <img
         src="/images/criar-chave-api.png"
-        alt="Interface da plataforma AbacatePay mostrando o botão de criação de chave"
+        alt="Interface da plataforma V4Pay mostrando o botão de criação de chave"
       />
       <Card title="Clique no botão 'Criar Chave'">
         Inicie o processo de criação de uma nova chave de API
@@ -82,12 +82,12 @@ Siga estes passos no dashboard da AbacatePay:
 Após criar sua chave, você pode começar a integrar com nossa API. Lembre-se de incluir a chave em todas as requisições no header `Authorization`:
 
 ```bash
-curl -X POST https://api.abacatepay.com/v1/payments \
+curl -X POST https://api.v4pay.com/v1/payments \
   -H "Authorization: Bearer sua_chave_api" \
   -H "Content-Type: application/json" \
   -d '{"amount": 1000}'
 ```
 
 <Card title="Nota Importante" icon="info" horizontal>
-  O mesmo endpoint (`https://api.abacatepay.com`) é usado tanto para o ambiente de desenvolvimento quanto para produção. O ambiente é determinado automaticamente pela chave de API utilizada na requisição.
+  O mesmo endpoint (`https://api.v4pay.com`) é usado tanto para o ambiente de desenvolvimento quanto para produção. O ambiente é determinado automaticamente pela chave de API utilizada na requisição.
 </Card>
