@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.0.0
 info:
   title: V4Pay API
   version: 1.0.0
@@ -18,7 +18,7 @@ tags:
     description: Operações relacionadas a geração de QRCode PIX
 
 paths:
-  /customer/create:
+  /customers:
     post:
       tags: [Cliente]
       summary: Criar um novo cliente
@@ -42,8 +42,6 @@ paths:
           $ref: '#/components/responses/BadRequest'
         401:
           $ref: '#/components/responses/Unauthorized'
-
-  /customer/list:
     get:
       tags: [Cliente]
       summary: Listar clientes
@@ -65,7 +63,7 @@ paths:
         401:
           $ref: '#/components/responses/Unauthorized'
 
-  /charge/create:
+  /charges:
     post:
       tags: [Charge]
       summary: Criar uma nova cobrança
@@ -90,8 +88,6 @@ paths:
           $ref: '#/components/responses/BadRequest'
         401:
           $ref: '#/components/responses/Unauthorized'
-
-  /charge/list:
     get:
       tags: [Charge]
       summary: Listar cobranças
@@ -114,7 +110,40 @@ paths:
         401:
           $ref: '#/components/responses/Unauthorized'
 
-  /coupon/create:
+  /charges/{id}/status:
+    get:
+      tags: [Charge]
+      summary: Checar status de uma cobrança
+      description: Consulta o status atual de uma cobrança pelo ID.
+      security:
+        - bearerAuth: []
+      operationId: getChargeStatus
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID da cobrança.
+          schema:
+            type: string
+            example: "bill_z9y8x7w6"
+      responses:
+        200:
+          description: Status da cobrança retornado com sucesso.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum: [PENDING, PAID, EXPIRED, CANCELLED]
+                    example: PAID
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+
+  /coupons:
     post:
       tags: [Cupom]
       summary: Criar um novo Cupom
@@ -138,8 +167,6 @@ paths:
           $ref: '#/components/responses/BadRequest'
         401:
           $ref: '#/components/responses/Unauthorized'
-
-  /coupon/list:
     get:
       tags: [Cupom]
       summary: Listar Cupons
@@ -161,7 +188,7 @@ paths:
         401:
           $ref: '#/components/responses/Unauthorized'
 
-  /pix/create:
+  /pix:
     post:
       tags: [PixQRCode]
       summary: Gerar QRCode PIX Estático
@@ -186,8 +213,29 @@ paths:
           $ref: '#/components/responses/BadRequest'
         401:
           $ref: '#/components/responses/Unauthorized'
+    get:
+      tags: [PixQRCode]
+      summary: Listar transações PIX
+      description: Lista todas as transações PIX registradas na plataforma.
+      security:
+        - bearerAuth: []
+      operationId: listPixTransactions
+      responses:
+        200:
+          description: Lista de transações PIX retornada com sucesso.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PixQRCode'
+        401:
+          $ref: '#/components/responses/Unauthorized'
 
-  /pix/simulate-payment:
+  /pix/simulate:
     post:
       tags: [PixQRCode]
       summary: Simular pagamento PIX
@@ -225,7 +273,7 @@ paths:
         404:
           $ref: '#/components/responses/NotFound'
 
-  /pix/check/{id}:
+  /pix/{id}/status:
     get:
       tags: [PixQRCode]
       summary: Consultar status do PIX
