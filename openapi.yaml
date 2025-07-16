@@ -15,7 +15,9 @@ tags:
   - name: Cupom
     description: Operações relacionadas a cupons de desconto
   - name: PixQRCode
-    description: Operações relacionadas a geração de QRCode PIX
+    description: Operações relacionadas à geração e consulta de QRCode PIX
+  - name: InterPix
+    description: Futuras operações via Banco Inter
 
 paths:
   /customers:
@@ -483,6 +485,7 @@ components:
           example: "Pagamento do pedido #123"
         customer:
           $ref: '#/components/schemas/CustomerRequest'
+# FUTURO: A rota /pix poderá ser dividida para /inter para emissão de PIX via Banco Inter (ver tag InterPix)
 
     PixQRCode:
       type: object
