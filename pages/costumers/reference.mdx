@@ -1,12 +1,12 @@
 ---
-title: 'Referência'
-description: 'Gerencie seus clientes, aqueles que pagam você.'
-icon: 'book-open-cover'
+title: "Referência"
+description: "Gerencie seus clientes, aqueles que pagam você."
+icon: "book-open-cover"
 ---
 
 Um cliente é seu usuário final, aquele que você vai cobrar e pagar o seu produto.
 
-## <Icon icon="folder-tree" type="solid"/>  Estrutura
+## <Icon icon="folder-tree" />  Estrutura
 
 Um cliente é representado em nossa API pela seguinte estrutura:
 
@@ -26,34 +26,50 @@ Um cliente é representado em nossa API pela seguinte estrutura:
 ## Atributos
 
 ### id:
+
 ```json
 {
   "id": "cust_9a930226-d8b2-44"
 }
 ```
-`id`: <u>string</u><br /> ID público do cliente
+
+`id`: <u>string</u>\
+ ID público do cliente
 
 ### user_id:
+
 ```json
 "user_id": "user_xpto"
 ```
-`user_id`: <u>string</u><br /> Identificador único do usuário dono do cliente
+
+`user_id`: <u>string</u>\
+ Identificador único do usuário dono do cliente
 
 ### name:
-`name`: <u>string</u><br /> Nome do cliente
+
+`name`: <u>string</u>\
+ Nome do cliente
 
 ### email:
-`email`: <u>string</u><br /> E-mail do cliente (obrigatório)
+
+`email`: <u>string</u>\
+ E-mail do cliente (obrigatório)
 
 ### cpf:
-`cpf`: <u>string</u><br /> CPF do cliente
+
+`cpf`: <u>string</u>\
+ CPF do cliente
 
 ### phone:
-`phone`: <u>string</u><br /> Telefone do cliente
+
+`phone`: <u>string</u>\
+ Telefone do cliente
 
 ### created_at / updated_at:
-`created_at`, `updated_at`: <u>string (ISO date)</u><br /> Datas de criação e atualização do cliente
 
-<Tip title="Clientes são únicos por CPF/CNPJ" icon="book" horizontal>
- Não é possível criar um cliente com CPF/CNPJ inválido e caso já exista um cliente com esse CPF/CNPJ, a API não criará o cliente novo mas retornará o cliente já existente
+`created_at`, `updated_at`: <u>string (ISO date)</u>\
+ Datas de criação e atualização do cliente
+
+<Tip>
+  Não é possível criar um cliente com CPF/CNPJ inválido e caso já exista um cliente com esse CPF/CNPJ, a API não criará o cliente novo mas retornará o cliente já existente
 </Tip>

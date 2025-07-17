@@ -1,15 +1,15 @@
 ---
-title: Referência
-description: Endpoints relacionados à criação, listagem e status de cobranças.
+title: "Referência"
+description: "Endpoints relacionados à criação, listagem e status de cobranças."
+icon: "book-open-cover"
 ---
-
-import { Endpoint } from 'mintlify/components'
 
 ## Introdução
 
 O termo "cobrança" é genérico. Ele representa um portal de um fluxo de pagamento onde você pode cobrar seu cliente e ele fazer todo o processo de pagamento sem nenhuma interrupção.
 
 Atualmente uma cobrança pode ser de duas formas:
+
 - `ONE_TIME`: cobrança única, exige dados do cliente (`customerId` ou `customer`)
 - `MULTIPLE_PAYMENTS`: pode ser paga várias vezes por diferentes pessoas via checkout aberto.
 
@@ -22,26 +22,26 @@ Atualmente uma cobrança pode ser de duas formas:
   path="/charges"
   description="Cria uma nova cobrança associada a um cliente e usuário autenticado."
   requestBody={{
-    customer_id: 'ID do cliente (UUID)',
-    user_id: 'ID do usuário da plataforma (UUID)',
-    amount: 120,
-    description: 'Assinatura Premium',
-    expires_at: '2025-12-31T23:59:59Z'
-  }}
+customer_id: 'ID do cliente (UUID)',
+user_id: 'ID do usuário da plataforma (UUID)',
+amount: 120,
+description: 'Assinatura Premium',
+expires_at: '2025-12-31T23:59:59Z'
+}}
   responses={{
-    201: {
-      description: 'Cobrança criada com sucesso'
-    },
-    400: {
-      description: 'Campos obrigatórios ausentes ou inválidos'
-    },
-    401: {
-      description: 'Token JWT ausente ou inválido'
-    },
-    500: {
-      description: 'Erro interno no servidor'
-    }
-  }}
+201: {
+  description: 'Cobrança criada com sucesso'
+},
+400: {
+  description: 'Campos obrigatórios ausentes ou inválidos'
+},
+401: {
+  description: 'Token JWT ausente ou inválido'
+},
+500: {
+  description: 'Erro interno no servidor'
+}
+}}
 />
 
 ### Listar cobranças
@@ -51,16 +51,16 @@ Atualmente uma cobrança pode ser de duas formas:
   path="/charges"
   description="Lista todas as cobranças registradas vinculadas ao usuário autenticado."
   responses={{
-    200: {
-      description: 'Lista de cobranças retornada com sucesso'
-    },
-    401: {
-      description: 'Token JWT ausente ou inválido'
-    },
-    500: {
-      description: 'Erro ao buscar as cobranças'
-    }
-  }}
+200: {
+  description: 'Lista de cobranças retornada com sucesso'
+},
+401: {
+  description: 'Token JWT ausente ou inválido'
+},
+500: {
+  description: 'Erro ao buscar as cobranças'
+}
+}}
 />
 
 ### Checar status da cobrança
@@ -70,30 +70,30 @@ Atualmente uma cobrança pode ser de duas formas:
   path="/charges/{id}/status"
   description="Consulta o status de uma cobrança específica por ID."
   parameters={[
-    {
-      name: 'id',
-      in: 'path',
-      required: true,
-      description: 'ID da cobrança a ser consultada'
-    }
-  ]}
+{
+  name: 'id',
+  in: 'path',
+  required: true,
+  description: 'ID da cobrança a ser consultada'
+}
+]}
   responses={{
-    200: {
-      description: 'Status da cobrança retornado com sucesso'
-    },
-    401: {
-      description: 'Token JWT ausente ou inválido'
-    },
-    404: {
-      description: 'Cobrança não encontrada'
-    },
-    500: {
-      description: 'Erro ao buscar status da cobrança'
-    }
-  }}
+200: {
+  description: 'Status da cobrança retornado com sucesso'
+},
+401: {
+  description: 'Token JWT ausente ou inválido'
+},
+404: {
+  description: 'Cobrança não encontrada'
+},
+500: {
+  description: 'Erro ao buscar status da cobrança'
+}
+}}
 />
 
-## <Icon icon="folder-tree" type="solid"/> Estrutura
+## <Icon icon="folder-tree" /> Estrutura
 
 Uma cobrança é representada em nossa API pela seguinte estrutura:
 
@@ -138,170 +138,193 @@ Uma cobrança é representada em nossa API pela seguinte estrutura:
 ## Atributos:
 
 <AccordionGroup>
-    <Accordion title="id:">
-        ```json json {2}
-        {
-        "id": "bill_uA0M0xwg5R4mSyr0n2PjHQXY",
-        } 
-        ```
+  <Accordion title="id:">
+    ```json json {2}
+    {
+    "id": "bill_uA0M0xwg5R4mSyr0n2PjHQXY",
+    } 
+    ```
 
-        `id` : <u> string. </u> <br />
-        Id único da cobrança na AbacatePay
-    </Accordion>
-    <Accordion title="frequency:">
-        ```json json {2}
-        {
-        "frequency": "ONE_TIME",
-        }
-        ```
-        `frequency` : <u> string. </u> <br />
-        Frequência da cobrança. Pode ser `ONE_TIME` ou `MULTIPLE_PAYMENTS`.
+    `id` : <u>string. </u>  \\
 
-        <Info >
-            |                      |                                                                                                      |
-            | ---------------------| ---------------------------------------------------------------------------------------------------- |
-            | `ONE_TIME`           | **Cobrança que aceita um único pagamento. É necessário enviar os dados do cliente**                  |
-            | `MULTIPLE_PAYMENTS`  | **Cobrança em modo checkout, aceita vários pagamentos. Não é necessário enviar os dados do cliente.**|
-        </Info>
-    </Accordion>
-     <Accordion title="url:">
-       ```json json {2}
-        {
-          "url": "https://v4pay.com/pay/bill_uA0M0xwg5R4mSyr0n2PjHQXY",
-        }
-        ```
-        `url` : <u> string. </u> <br />
-        URL para seu cliente executar o pagamento da cobrança
+    Id único da cobrança na AbacatePay
+  </Accordion>
+  <Accordion title="frequency:">
+    ```json json {2}
+    {
+    "frequency": "ONE_TIME",
+    }
+    ```
 
-        ### Amount:
-        ```json json {2}
-        {
-          "amount": 4000,
-        }
-        ```
-        `amount` : <u> number. </u> <br />
-        Valor da cobrança em centavos
-    </Accordion>
-    <Accordion title="amount:">
-        ```json json {2}
-        {
-          "amount": 4000,
-        }
-        ```
-        `amount` : <u> number. </u> <br />
-        Valor da cobrança em centavos
+    `frequency` : <u>string. </u>  \\
 
-    </Accordion>
-       <Accordion title="status:">
-        ```json json {2}
-        {
-          "status": "PAID",
-        }
-        ```
-        `status` : <u> string. </u> <br />
-        Status da cobrança. Pode ser `PENDING`, `EXPIRED`, `CANCELLED`, `PAID`, `REFUNDED`
+    Frequência da cobrança. Pode ser `ONE_TIME` ou `MULTIPLE_PAYMENTS`.
 
-        <Info >
-            |  |                            |
-            | -----------| ------------------------------------- |
-            | `PENDING`  | **A cobrança está com o pagamento pendente**                    |
-            | `EXPIRED`  | **O tempo limite de pagamento foi excedido**                          |
-            | `CANCELLED`| **A cobrança foi cancelada por você** |
-            | `PAID`     | **A cobrança foi paga com sucesso pelo cliente** |
-            | `REFUNDED` | **O valor foi devolvido ao cliente** |
-        </Info>
-    </Accordion>
-    <Accordion title="methods:">
-       ```json json {2}
-        {
-          "methods": ["PIX"],
-        }
-        ```
-        `methods` : <u> array </u> <br />
-        Tipos de pagamento. Suportamos somente `PIX` no momento.
-    </Accordion>
-    <Accordion title="products:">
-       ```json json {2-9}
-        {
-        "products":
-        [
-          {
-            "id": "prod_dNFbdDjfpaegmzBWWdNM2Huw",
-            "externalId": "prod-1234",
-            "quantity": 1
-          }
-        ],
-        }
-        ```
-        `products` : <u> array </u> <br />
-        Lista de produtos inclusos na cobrança
-    </Accordion>
-    <Accordion title="customer:">
-        ```json json {2-10}
-        {
-          "customer": {
-            "id": "cust_aebxkhDZNaMmJeKsy0AHS0FQ",
-            "metadata": {
-              "name": "Test Customer",
-              "cellphone": "11999999999",
-              "taxId": "12345678900",
-              "email": "test@example.com"
-            }
-          }
-        }
-        ```
-        `customer` : <u> object </u> <br />
-        Cliente que você está cobrando. Veja referência da estrutura <a href="./client/reference.mdx"> aqui </a>
-    </Accordion>
-    <Accordion title="metadata:">
-        ```json json {2-5}
-        {
-          "metadata": {
-            "fee": 100,
-            "returnUrl": "https://example.com/billing",
-            "completionUrl": "https://example.com/completion"
-          }
-        }
-        ```
-        `metadata` : <u> object </u> <br />
-        Objeto com metadados sobre a cobrança
+    <Info>
+      |                     |                                                                                                       |
+      | ------------------- | ----------------------------------------------------------------------------------------------------- |
+      | `ONE_TIME`          | **Cobrança que aceita um único pagamento. É necessário enviar os dados do cliente**                   |
+      | `MULTIPLE_PAYMENTS` | **Cobrança em modo checkout, aceita vários pagamentos. Não é necessário enviar os dados do cliente.** |
+    </Info>
+  </Accordion>
+  <Accordion title="url:">
+    ```json json {2}
+     {
+       "url": "https://v4pay.com/pay/bill_uA0M0xwg5R4mSyr0n2PjHQXY",
+     }
+    ```
 
-        * `fee`  <u> number </u>
-        Taxa aplicada pela V4Pay
-        * `returnUrl` <u>string </u>
-        URL que o cliente será redirecionado ao clicar no botão "voltar"
-        * `completionUrl` <u>string </u>
-        URL que o cliente será redirecionado ao realizar o pagamento
-    </Accordion>
-    <Accordion title="nextBilling:">
-        ```json json {2}
-        {
-          "nextBilling": null,
+    `url` : <u>string. </u>  \\
+
+    URL para seu cliente executar o pagamento da cobrança
+
+    ### Amount:
+
+    ```json json {2}
+    {
+      "amount": 4000,
+    }
+    ```
+
+    `amount` : <u>number. </u>  \\
+
+    Valor da cobrança em centavos
+  </Accordion>
+  <Accordion title="amount:">
+    ```json json {2}
+    {
+      "amount": 4000,
+    }
+    ```
+
+    `amount` : <u>number. </u>  \\
+
+    Valor da cobrança em centavos
+  </Accordion>
+  <Accordion title="status:">
+    ```json json {2}
+    {
+      "status": "PAID",
+    }
+    ```
+
+    `status` : <u>string. </u>  \\
+
+    Status da cobrança. Pode ser `PENDING`, `EXPIRED`, `CANCELLED`, `PAID`, `REFUNDED`
+
+    <Info>
+      |             |                                                  |
+      | ----------- | ------------------------------------------------ |
+      | `PENDING`   | **A cobrança está com o pagamento pendente**     |
+      | `EXPIRED`   | **O tempo limite de pagamento foi excedido**     |
+      | `CANCELLED` | **A cobrança foi cancelada por você**            |
+      | `PAID`      | **A cobrança foi paga com sucesso pelo cliente** |
+      | `REFUNDED`  | **O valor foi devolvido ao cliente**             |
+    </Info>
+  </Accordion>
+  <Accordion title="methods:">
+    ```json json {2}
+     {
+       "methods": ["PIX"],
+     }
+    ```
+
+    `methods` : <u>array </u>  \\
+
+    Tipos de pagamento. Suportamos somente `PIX` no momento.
+  </Accordion>
+  <Accordion title="products:">
+    ```json json {2,3,4,5,6,7,8,9}
+     {
+     "products":
+     [
+       {
+         "id": "prod_dNFbdDjfpaegmzBWWdNM2Huw",
+         "externalId": "prod-1234",
+         "quantity": 1
+       }
+     ],
+     }
+    ```
+
+    `products` : <u>array </u>  \\
+
+    Lista de produtos inclusos na cobrança
+  </Accordion>
+  <Accordion title="customer:">
+    ```json json {2,3,4,5,6,7,8,9,10}
+    {
+      "customer": {
+        "id": "cust_aebxkhDZNaMmJeKsy0AHS0FQ",
+        "metadata": {
+          "name": "Test Customer",
+          "cellphone": "11999999999",
+          "taxId": "12345678900",
+          "email": "test@example.com"
         }
-        ```
+      }
+    }
+    ```
 
-        `nextBilling` : <u> date-time | null. </u> <br />
-        Data e hora da próxima cobrança, ou null para cobranças únicas
-    </Accordion>
-    <Accordion title="allowCoupons:">
-        ```json json {2}
-        {
-          "allowCoupons": false,
-        }
-        ```
+    `customer` : <u>object </u>  \\
 
-        `allowCoupons` : <u> bool | null. </u> <br />
-        Permite ou não cupons para a cobrança
-    </Accordion>
-    <Accordion title="coupons:">
-        ```json json {2}
-        {
-          "coupons": [],
-        }
-        ```
+    Cliente que você está cobrando. Veja referência da estrutura <a href="./client/reference.mdx">
+    
+    aqui </a>
+  </Accordion>
+  <Accordion title="metadata:">
+    ```json json {2,3,4,5}
+    {
+      "metadata": {
+        "fee": 100,
+        "returnUrl": "https://example.com/billing",
+        "completionUrl": "https://example.com/completion"
+      }
+    }
+    ```
 
-        `coupons` :<u> array </u> <br />
-        Cupons permitidos na cobrança. Só são considerados os cupons se `allowCoupons` é verdadeiro.
-    </Accordion>
+    `metadata` : <u>object </u>  \\
 
+    Objeto com metadados sobre a cobrança
+
+    - `fee`  <u>number </u>
+      Taxa aplicada pela V4Pay
+    - `returnUrl` <u>string </u>
+      URL que o cliente será redirecionado ao clicar no botão "voltar"
+    - `completionUrl` <u>string </u>
+      URL que o cliente será redirecionado ao realizar o pagamento
+  </Accordion>
+  <Accordion title="nextBilling:">
+    ```json json {2}
+    {
+      "nextBilling": null,
+    }
+    ```
+
+    `nextBilling` : <u>date-time | null. </u>  \\
+
+    Data e hora da próxima cobrança, ou null para cobranças únicas
+  </Accordion>
+  <Accordion title="allowCoupons:">
+    ```json json {2}
+    {
+      "allowCoupons": false,
+    }
+    ```
+
+    `allowCoupons` : <u>bool | null. </u>  \\
+
+    Permite ou não cupons para a cobrança
+  </Accordion>
+  <Accordion title="coupons:">
+    ```json json {2}
+    {
+      "coupons": [],
+    }
+    ```
+
+    `coupons` :<u>array </u>  \\
+
+    Cupons permitidos na cobrança. Só são considerados os cupons se `allowCoupons` é verdadeiro.
+  </Accordion>
 </AccordionGroup>
