@@ -1,24 +1,97 @@
 ---
-title: "Referência"
-description: "Crie um link de cobrança e deixe seu cliente pagar"
-icon: "book-open-cover"
+title: Cobranças (Charges)
+description: Endpoints relacionados à criação, listagem e status de cobranças.
 ---
 
-tabs:
-  - group: api
-    name: Cobrança
-    paths:
-      - /charges
+import { Endpoint } from 'mintlify/components'
+
+## Introdução
 
 O termo "cobrança" é genérico. Ele representa um portal de um fluxo de pagamento onde você pode cobrar seu cliente e ele fazer todo o processo de pagamento sem nenhuma interrupção.
 
-Atualmente uma cobrança pode ser de duas formas: 
-- `ONE_TIME` para cobranças que serão pagas uma única vez.  preciso enviar os dados do seu cliente. Para cobrançar `ONE_TIME` é obrigatório informar o cliente ao criar a cobrança por meio dos campos `customerId` ou `customer`. 
-  - Só é necessário fornecer uma das opções de identificador do cliente: `customerId` **OU** `customer`.
-- `MULTIPLE_PAYMENTS` é uma cobrança que pode ser paga multiplas vezes e por múltiplas pessoas diferentes. **Ex:** utilização de um único link de pagamento para vender um produto para múltiplas pessoas.
-  - Para cobranças `MULTIPLE_PAYMENTS` o usuário informará informações como CPF, nome e email na página do checkout.
+Atualmente uma cobrança pode ser de duas formas:
+- `ONE_TIME`: cobrança única, exige dados do cliente (`customerId` ou `customer`)
+- `MULTIPLE_PAYMENTS`: pode ser paga várias vezes por diferentes pessoas via checkout aberto.
 
+## Endpoints
 
+### Criar cobrança
+
+<Endpoint
+  method="POST"
+  path="/charges"
+  description="Cria uma nova cobrança associada a um cliente e usuário autenticado."
+  requestBody={{
+    customer_id: 'ID do cliente (UUID)',
+    user_id: 'ID do usuário da plataforma (UUID)',
+    amount: 120,
+    description: 'Assinatura Premium',
+    expires_at: '2025-12-31T23:59:59Z'
+  }}
+  responses={{
+    201: {
+      description: 'Cobrança criada com sucesso'
+    },
+    400: {
+      description: 'Campos obrigatórios ausentes ou inválidos'
+    },
+    401: {
+      description: 'Token JWT ausente ou inválido'
+    },
+    500: {
+      description: 'Erro interno no servidor'
+    }
+  }}
+/>
+
+### Listar cobranças
+
+<Endpoint
+  method="GET"
+  path="/charges"
+  description="Lista todas as cobranças registradas vinculadas ao usuário autenticado."
+  responses={{
+    200: {
+      description: 'Lista de cobranças retornada com sucesso'
+    },
+    401: {
+      description: 'Token JWT ausente ou inválido'
+    },
+    500: {
+      description: 'Erro ao buscar as cobranças'
+    }
+  }}
+/>
+
+### Checar status da cobrança
+
+<Endpoint
+  method="GET"
+  path="/charges/{id}/status"
+  description="Consulta o status de uma cobrança específica por ID."
+  parameters={[
+    {
+      name: 'id',
+      in: 'path',
+      required: true,
+      description: 'ID da cobrança a ser consultada'
+    }
+  ]}
+  responses={{
+    200: {
+      description: 'Status da cobrança retornado com sucesso'
+    },
+    401: {
+      description: 'Token JWT ausente ou inválido'
+    },
+    404: {
+      description: 'Cobrança não encontrada'
+    },
+    500: {
+      description: 'Erro ao buscar status da cobrança'
+    }
+  }}
+/>
 
 ## <Icon icon="folder-tree" type="solid"/> Estrutura
 

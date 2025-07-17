@@ -1,8 +1,6 @@
----
-title: 'Referência'
-description: 'Crie cupons de desconto para seus clientes usarem uma ou várias vezes'
+title: Cupons (Coupons)
+description: Crie cupons de desconto para seus clientes usarem uma ou várias vezes
 icon: 'book-open-cover'
----
 
 Os cupons de desconto permitem que você ofereça reduções de preço aos seus clientes de forma controlada e estratégica. Você pode criar cupons com desconto percentual ou valor fixo, definir limites de uso e acompanhar quantas vezes foram utilizados.
 
@@ -20,9 +18,9 @@ Um cupom é representado em nossa API pela seguinte estrutura:
   "redeemsCount": 0,
   "status": "ACTIVE",
   "devMode": true,
-  "notes": "teste de cupom",
-  "createdAt": "2025-01-23T14:06:16.880Z",
-  "updatedAt": "2025-01-23T14:06:16.880Z"
+  "notes": "Cupom de boas-vindas",
+  "created_at": "2025-01-23T14:06:16.880Z",
+  "updated_at": "2025-01-23T14:06:16.880Z"
 }
 ```
 
@@ -117,34 +115,22 @@ Um cupom é representado em nossa API pela seguinte estrutura:
         `devMode` : <u> boolean. </u> <br />
         Indica se o cupom foi criado em ambiente de desenvolvimento (`true`) ou produção (`false`)
     </Accordion>
-    <Accordion title="metadata:">
+    <Accordion title="created_at:">
         ```json {2}
         {
-          "metadata": {
-            "campaign": "black-friday-2024",
-            "category": "new-customers"
-          },
+          "created_at": "2025-01-23T14:06:16.880Z",
         }
         ```
-        `metadata` : <u> object. </u> <br />
-        Objeto para armazenar informações adicionais sobre o cupom, como campanha, categoria ou outros dados relevantes para sua organização
-    </Accordion>
-    <Accordion title="createdAt:">
-        ```json {2}
-        {
-          "createdAt": "2025-01-23T14:06:16.880Z",
-        }
-        ```
-        `createdAt` : <u> date-time. </u> <br />
+        `created_at` : <u> date-time. </u> <br />
         Data e hora de criação do cupom
     </Accordion>
-    <Accordion title="updatedAt:">
+    <Accordion title="updated_at:">
         ```json {2}
         {
-          "updatedAt": "2025-01-23T14:06:16.880Z",
+          "updated_at": "2025-01-23T14:06:16.880Z",
         }
         ```
-        `updatedAt` : <u> date-time. </u> <br />
+        `updated_at` : <u> date-time. </u> <br />
         Data e hora da última atualização do cupom
     </Accordion>
 </AccordionGroup>

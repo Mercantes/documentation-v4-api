@@ -35,7 +35,7 @@ Gerencie suas chaves de API diretamente em nossa plataforma. Você pode:
 <Card title="Boas Práticas de Segurança" icon="light-emergency-on" horizontal>
   * Armazene suas chaves em variáveis de ambiente ou gerenciadores de segredos
   * Nunca compartilhe suas chaves de API
-  * A AbacatePay nunca solicitará suas chaves
+  * A V4Pay nunca solicitará suas chaves
   * Revogue imediatamente qualquer chave comprometida
 </Card>
 
@@ -79,11 +79,12 @@ Siga estes passos no dashboard da V4Pay:
   </Step>
 </Steps>
 
-Após criar sua chave, você pode começar a integrar com nossa API. Lembre-se de incluir a chave em todas as requisições no header `Authorization`:
+Após criar sua chave, você pode começar a integrar com nossa API. Lembre-se de incluir a chave de API no header `x-api-key` e o token JWT no header `Authorization`:
 
 ```bash
 curl -X POST https://api.v4pay.com/v1/payments \
-  -H "Authorization: Bearer sua_chave_api" \
+  -H "x-api-key: sua_chave_de_api" \
+  -H "Authorization: Bearer seu_token_jwt" \
   -H "Content-Type: application/json" \
   -d '{"amount": 1000}'
 ```
