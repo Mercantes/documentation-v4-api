@@ -136,3 +136,18 @@ Um cupom é representado em nossa API pela seguinte estrutura:
         Data e hora da última atualização do cupom
     </Accordion>
 </AccordionGroup>
+
+## Exemplo de Requisição
+
+```bash
+curl -X POST https://api.v4pay.com/coupons \
+  -H "Authorization: Bearer <token>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "id": "MY_COUPON",
+    "discountKind": "PERCENTAGE",
+    "discount": 10,
+    "maxRedeems": -1,
+    "notes": "Cupom de boas-vindas"
+  }'
+```

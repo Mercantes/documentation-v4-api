@@ -73,3 +73,18 @@ Um cliente é representado em nossa API pela seguinte estrutura:
 <Tip>
   Não é possível criar um cliente com CPF/CNPJ inválido e caso já exista um cliente com esse CPF/CNPJ, a API não criará o cliente novo mas retornará o cliente já existente
 </Tip>
+
+## Exemplo de Requisição
+
+```bash
+curl -X POST https://api.v4pay.com/customers \
+  -H "Authorization: Bearer <token>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "user_id": "user_123",
+    "name": "João da Silva",
+    "email": "joao@email.com",
+    "cpf": "12345678900",
+    "phone": "11999999999"
+  }'
+```

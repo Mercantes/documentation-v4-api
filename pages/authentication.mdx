@@ -5,7 +5,7 @@ icon: 'lock'
 ---
 
 <Tip>
-  **Chave de API**: Sua credencial de acesso à API da V4Pay. Esta chave identifica sua conta e autoriza suas requisições. **IMPORTANTE**: Sem a chave de API, as requisições serão recusadas.
+  **Token de Acesso (JWT)**: Todas as requisições à API da V4Pay devem conter um token JWT válido no header `Authorization`. Este token identifica e autentica o usuário da requisição.
 </Tip> 
 
 ## <Icon icon="lock" type="solid"/>  Gerenciando chaves de API
@@ -25,9 +25,8 @@ Gerencie suas chaves de API diretamente em nossa plataforma. Você pode:
 
 <Card title="Erro de Autenticação" icon="warning" horizontal>
   A API retornará o código HTTP `401` quando:
-  - A chave de API não for fornecida no header
-  - A chave for inválida
-  - A chave tiver sido revogada
+  - O token JWT não for fornecido no header
+  - O token for inválido ou expirado
 </Card>
 
 ## <Icon icon="key" type="solid"/>  Criando chaves de API
@@ -39,56 +38,15 @@ Gerencie suas chaves de API diretamente em nossa plataforma. Você pode:
   * Revogue imediatamente qualquer chave comprometida
 </Card>
 
-## Como criar sua chave de API
-
-Siga estes passos no dashboard da V4Pay:
-
-<Steps>
-  <Step title="Acesse a Seção de Integração">
-    <Card>
-      <img
-        src="/images/criar-chave-api.png"
-        alt="Interface da plataforma V4Pay mostrando o botão de criação de chave"
-      />
-      <Card title="Clique no botão 'Criar Chave'">
-        Inicie o processo de criação de uma nova chave de API
-      </Card>
-    </Card>
-  </Step>
-  <Step title="Adicione uma Descrição">
-    <Card>
-      <img
-        src="/images/exemplo-de-chave-api.png"
-        alt="Formulário de criação de chave com campo de descrição"
-      />
-      <Card title="Identifique sua chave">
-        Adicione uma descrição clara para identificar o propósito desta chave
-      </Card>
-    </Card>
-  </Step>
-  <Step title="Copie sua Chave">
-    <Card>
-      <img
-        src="/images/copiar-chave-api.png"
-        alt="Lista de chaves com opção para copiar"
-      />
-      <Card title="Armazene sua chave com segurança">
-        Copie a chave gerada e armazene-a em um local seguro
-      </Card>
-    </Card>
-  </Step>
-</Steps>
-
-Após criar sua chave, você pode começar a integrar com nossa API. Lembre-se de incluir a chave de API no header `x-api-key` e o token JWT no header `Authorization`:
+Após criar sua chave, você pode começar a integrar com nossa API. Lembre-se de incluir o token JWT no header `Authorization`:
 
 ```bash
 curl -X POST https://api.v4pay.com/v1/payments \
-  -H "x-api-key: sua_chave_de_api" \
-  -H "Authorization: Bearer seu_token_jwt" \
+  -H "Authorization: Bearer token" \
   -H "Content-Type: application/json" \
   -d '{"amount": 1000}'
 ```
 
 <Card title="Nota Importante" icon="info" horizontal>
-  O mesmo endpoint (`https://api.v4pay.com`) é usado tanto para o ambiente de desenvolvimento quanto para produção. O ambiente é determinado automaticamente pela chave de API utilizada na requisição.
+  O mesmo endpoint (`https://api.v4pay.com`) é usado tanto para o ambiente de desenvolvimento quanto para produção.
 </Card>

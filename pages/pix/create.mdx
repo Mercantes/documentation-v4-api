@@ -2,3 +2,20 @@
 title: Criar QRCode PIX
 openapi: 'POST /pix'
 ---
+
+## Exemplo de requisição
+
+```bash
+curl -X POST https://api.v4pay.com/pix \
+  -H "Authorization: Bearer <token>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "user_id": "user_123",
+    "customer_id": "customer_abc",
+    "description": "Assinatura Mensal",
+    "amount": 120,
+    "customer_name": "João da Silva",
+    "customer_email": "joao@email.com",
+    "expires_at": "2025-12-31T23:59:59Z"
+  }'
+```

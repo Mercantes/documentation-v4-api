@@ -94,6 +94,21 @@ Atualmente uma cobrança pode ser de duas formas:
   }}
 />
 
+## Exemplo de requisição
+
+```bash
+curl -X POST https://api.v4pay.com/charges \
+  -H "Authorization: Bearer <token>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "user_id": "user_123",
+    "customer_id": "customer_abc",
+    "amount": 120,
+    "description": "Assinatura Premium",
+    "expires_at": "2025-12-31T23:59:59Z"
+  }'
+```
+
 ## <Icon icon="folder-tree" type="solid"/> Estrutura
 
 Uma cobrança é representada em nossa API pela seguinte estrutura:

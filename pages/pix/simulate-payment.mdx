@@ -2,3 +2,14 @@
 title: 'Simular Pagamento'
 openapi: 'POST /pix/simulate'
 ---
+
+## Exemplo de requisição
+
+```bash
+curl -X POST https://api.v4pay.com/pix/simulate \
+  -H "Authorization: Bearer <token>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "txid": "pix-teste-001"
+  }'
+```
